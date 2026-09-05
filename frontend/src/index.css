@@ -308,29 +308,49 @@ h4.sec{
   background:color-mix(in srgb,var(--bg-el) 94%,transparent);
   -webkit-backdrop-filter:saturate(180%) blur(10px);backdrop-filter:saturate(180%) blur(10px);
   border-top:var(--hair) solid var(--sep-op);
+  animation:tabbar-in var(--med) var(--ease);
+}
+@keyframes tabbar-in{
+  from{transform:translateY(100%);opacity:0}
+  to{transform:translateY(0);opacity:1}
 }
 :root[data-theme="light"] #tabbar{background:rgba(249,249,251,.94)}
 #tabbar button{
   flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
   color:var(--label-3);font-size:10px;font-weight:500;letter-spacing:.005em;padding-top:3px;
-  transition:color var(--fast);
+  position:relative;
+  transition:color var(--fast) var(--ease),transform var(--fast) var(--ease);
+  -webkit-tap-highlight-color:transparent;
+}
+#tabbar button:not(.start):active{transform:scale(.92)}
+#tabbar button:not(.start)::after{
+  content:'';position:absolute;bottom:1px;left:50%;margin-left:-2px;
+  width:4px;height:4px;border-radius:50%;background:var(--acc);
+  opacity:0;transform:scale(0);
+  transition:transform var(--fast) var(--ease),opacity var(--fast) var(--ease);
+}
+#tabbar button:not(.start).on::after{
+  opacity:1;transform:scale(1);
 }
 /* The inactive tint is semi-transparent, so wherever two strokes cross inside an
    icon (the calendar's hangers over its frame, the divider's caps on its sides)
    the alpha doubled up and the icon read as a stack of loose layers. Carrying the
    fade on the <svg> instead of in the stroke colour flattens the icon first and
    fades it as one shape — and it does that for every icon, not just this one. */
-#tabbar button .icn{font-size:25px;--icon-stroke:1.65;color:var(--label)}
+#tabbar button .icn{
+  font-size:25px;--icon-stroke:1.65;color:var(--label);
+  transition:transform var(--fast) var(--ease),color var(--fast) var(--ease);
+}
 #tabbar button.on{color:var(--acc)}
-#tabbar button.on .icn{--icon-stroke:2;color:inherit;opacity:1}
+#tabbar button.on .icn{--icon-stroke:2;color:inherit;opacity:1;transform:scale(1.08) translateY(-1px)}
 #tabbar button.start{margin-top:-24px}
 #tabbar button.start .cir{
   width:52px;height:52px;border-radius:50%;background:var(--acc);color:var(--on-acc);
   display:flex;align-items:center;justify-content:center;position:relative;
   box-shadow:0 6px 18px -4px color-mix(in srgb,var(--acc) 55%,transparent);
-  transition:transform var(--fast) var(--ease);
+  transition:transform var(--fast) var(--ease),background var(--med) var(--ease),box-shadow var(--med) var(--ease);
 }
-#tabbar button.start:active .cir{transform:scale(.93)}
+#tabbar button.start:active .cir{transform:scale(.91)}
 #tabbar button.start .cir .icn{font-size:26px;--icon-stroke:2;color:inherit;opacity:1}
 #tabbar button.start span{color:var(--acc);font-weight:600}
 /* `.cir` is itself a <span>, so the label rules above and below reach it too and
@@ -343,8 +363,13 @@ h4.sec{
 #tabbar button.start.rec .cir::after{
   content:'';position:absolute;inset:0;border-radius:50%;
   border:2px solid var(--orange);animation:ping 1.9s var(--ease) infinite;
+  pointer-events:none;
 }
-@keyframes ping{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.45);opacity:0}}
+@keyframes ping{
+  0%{transform:scale(1);opacity:.75}
+  65%{transform:scale(1.48);opacity:0}
+  100%{transform:scale(1.48);opacity:0}
+}
 
 /* NOTE on every backdrop-filter pair in this file: the -webkit- line comes first and the
    standard property last, which is the order a prefixed/standard pair wants — whichever is
@@ -1134,6 +1159,11 @@ h4.sec{
     left:50%;right:auto;bottom:16px;transform:translateX(-50%);width:520px;
     border:var(--hair) solid var(--sep-op);border-radius:var(--r-xl);
     padding:7px 10px 9px;box-shadow:0 12px 40px -10px rgba(0,0,0,.5);
+    animation:tabbar-in-desktop var(--med) var(--ease);
+  }
+  @keyframes tabbar-in-desktop{
+    from{transform:translate(-50%,20px);opacity:0}
+    to{transform:translate(-50%,0);opacity:1}
   }
   #tabbar button.start{margin-top:-26px}
   .sheet{left:50%;right:auto;margin-left:-320px;width:640px;border-radius:var(--r-xl) var(--r-xl) 0 0}
