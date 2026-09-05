@@ -1,0 +1,148 @@
+name: Build & Release Android APK
+
+on:
+  release:
+    types: [published]
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      create_release:
+        description: 'Create a draft release if triggered manually without a tag'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  build-apk:
+    name: Build and Sign APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+          cache-dependency-path: 'frontend/package-lock.json'
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Frontend Dependencies & Build Mobile Bundle
+        run: |
+          cd frontend
+          npm ci
+          npm run build:mobile
+          APP_VER=$(node -p "require('./package.json').version")
+          echo "APP_VERSION=$APP_VER" >> $GITHUB_ENV
+          echo "Building Fittrix mobile v$APP_VER"
+
+      - name: Make Gradlew Executable
+        run: |
+          chmod +x frontend/android/gradlew
+
+      - name: Build Android Release APK
+        run: |
+          cd frontend/android
+          ./gradlew assembleRelease --no-daemon --stacktrace
+
+      - name: Sign & Align APK
+        run: |
+          set -eu
+          UNSIGNED="frontend/android/app/build/outputs/apk/release/app-release-unsigned.apk"
+          if [ ! -f "$UNSIGNED" ]; then
+            echo "ERROR: Could not find unsigned apk at $UNSIGNED"
+            find frontend/android/app/build/outputs/apk -type f
+            exit 1
+          fi
+
+          BT="$(ls -d $ANDROID_HOME/build-tools/* | sort -V | tail -1)"
+          ZIPALIGN="$BT/zipalign"
+          APKSIGNER="$BT/apksigner"
+
+          echo "Using Android Build Tools: $BT"
+
+          # 1. Zipalign the unsigned APK
+          "$ZIPALIGN" -f -p 4 "$UNSIGNED" "aligned.apk"
+
+          # 2. Check if user configured secret keystore, else create a dedicated release key
+          if [ -n "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" ]; then
+            echo "Signing with provided ANDROID_KEYSTORE_BASE64 secret..."
+            echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > release.keystore
+            KEYSTORE="release.keystore"
+            KS_PASS="${{ secrets.ANDROID_KEYSTORE_PASSWORD }}"
+            KEY_ALIAS="${{ secrets.ANDROID_KEY_ALIAS }}"
+          else
+            echo "No custom secret keystore found. Generating standalone production release signing key..."
+            keytool -genkeypair -v \
+              -keystore release.keystore \
+              -alias fittrix \
+              -keyalg RSA \
+              -keysize 2048 \
+              -validity 10000 \
+              -storepass "fittrix_release_key" \
+              -keypass "fittrix_release_key" \
+              -dname "CN=Fittrix, OU=Mobile, O=SmitroniX, L=Mumbai, ST=Maharashtra, C=IN"
+            KEYSTORE="release.keystore"
+            KS_PASS="fittrix_release_key"
+            KEY_ALIAS="fittrix"
+          fi
+
+          # 3. Sign the APK
+          "$APKSIGNER" sign \
+            --ks "$KEYSTORE" \
+            --ks-pass "pass:$KS_PASS" \
+            --ks-key-alias "$KEY_ALIAS" \
+            --key-pass "pass:$KS_PASS" \
+            --out "Fittrix-${APP_VERSION}.apk" \
+            aligned.apk
+
+          # 4. Verify signature
+          "$APKSIGNER" verify --verbose --print-certs "Fittrix-${APP_VERSION}.apk"
+
+          # 5. Checksums and generic named copy for direct download links
+          sha256sum "Fittrix-${APP_VERSION}.apk" > "Fittrix-${APP_VERSION}.apk.sha256"
+          cp "Fittrix-${APP_VERSION}.apk" "Fittrix.apk"
+          sha256sum "Fittrix.apk" > "Fittrix.apk.sha256"
+
+          # Cleanup keystore file from runner
+          rm -f release.keystore aligned.apk
+
+          echo "Signed APK successfully created: Fittrix-${APP_VERSION}.apk"
+
+      - name: Upload APK Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: fittrix-android-apk
+          path: |
+            Fittrix-*.apk
+            Fittrix-*.apk.sha256
+            Fittrix.apk
+            Fittrix.apk.sha256
+          retention-days: 30
+
+      - name: Upload APK to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            Fittrix-${{ env.APP_VERSION }}.apk
+            Fittrix-${{ env.APP_VERSION }}.apk.sha256
+            Fittrix.apk
+            Fittrix.apk.sha256
+          generate_release_notes: true
