@@ -1,4 +1,10 @@
 {
+  "name": "fittrix",
+  "private": true,
+  "scripts": {
+    "build:website": "bash scripts/build-website.sh",
+    "build:app": "bash scripts/build-app.sh"
+  },
   "devDependencies": {
     "js-yaml": "^4.1.0"
   }

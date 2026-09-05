@@ -1,0 +1,49 @@
+# Netlify Configuration for Fittrix
+# Docs: https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  # Builds the frontend PWA app and bundles it into the showcase website (/demo)
+  command = "npm run build:website"
+  # Serves the complete showcase website (landing page, docs, about, API, and interactive demo)
+  publish = "website"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Route /app to the full interactive PWA tracker
+[[redirects]]
+  from = "/app"
+  to = "/demo/"
+  status = 301
+
+[[redirects]]
+  from = "/app/*"
+  to = "/demo/:splat"
+  status = 200
+
+# Redirect direct APK downloads to the latest signed GitHub Release
+[[redirects]]
+  from = "/Fittrix.apk"
+  to = "https://github.com/SmitroniX/Fittrix/releases/latest/download/Fittrix.apk"
+  status = 302
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/demo/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Content-Type = "application/javascript; charset=utf-8"
+
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Content-Type = "text/css; charset=utf-8"
