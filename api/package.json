@@ -10,8 +10,8 @@
     "test": "node --test test/*.test.js"
   },
   "dependencies": {
-    "@simplewebauthn/server": "^13.1.1",
-    "undici": "^7.29.0",
+    "@simplewebauthn/server": "^14.0.0",
+    "undici": "^8.10.1",
     "web-push": "^3.6.7"
   },
   "optionalDependencies": {
