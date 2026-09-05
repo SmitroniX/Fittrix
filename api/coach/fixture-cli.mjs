@@ -74,7 +74,7 @@ if (kind === 'create') {
   const ex = (i) => lib[i % Math.max(1, lib.length)] || { id: 'unknown' };
   out({
     coach_contract: 1,
-    opengym_plan: 1,
+    fittrix_plan: 1,
     name: 'Coach plan',
     summary: 'A three-day full-body plan built around the equipment you listed.',
     // Echoes whether the previous bundle actually arrived, so a test can tell a refine that

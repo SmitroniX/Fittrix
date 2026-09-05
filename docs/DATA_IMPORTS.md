@@ -8,7 +8,7 @@ The app supports exporting and an export always contain *every* current routine.
 If you don't want to share every plan that you have currently created, you can either:
 - edit the exported json with a text editor  
   or (if you don't feel like editing json files):
-- open the [Demo](https://opengym.duarte-santos.ch/demo/#/home)
+- open the [Demo](https://fittrix.duarte-santos.ch/demo/#/home)
     - import your plans
     - make changes 
     - export a new json file for sharing
@@ -43,7 +43,7 @@ These apps have been tested to work without adjustments to the column names:
 If you have **Hevy Pro**, you can skip the CSV and import straight from Hevy:
 
 1. Open [Hevy → Settings → Developer](https://hevy.com/settings?developer) and create an API key
-2. In openGym: **Settings → Import from Hevy**
+2. In Fittrix: **Settings → Import from Hevy**
 3. Paste the key (used only for that import — it is not saved)
 4. Choose whether to bring **workouts**, **routines**, **weigh-ins**, or any mix, then confirm
 

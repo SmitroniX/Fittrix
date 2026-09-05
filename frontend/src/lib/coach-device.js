@@ -11,7 +11,6 @@
 import { readJsonFile, writeJsonFile } from './mobile.js'
 
 const FILE = 'fittrix-coach.json'
-const LEGACY_FILE = 'opengym-coach.json'
 
 export const COACH_MODES = ['off', 'server', 'byok']
 
@@ -21,7 +20,6 @@ let cache = null
 export async function loadCoachDevice() {
   if (cache) return cache
   let saved = await readJsonFile(FILE)
-  if (!saved) saved = await readJsonFile(LEGACY_FILE)
   cache = { ...DEFAULTS, ...(saved && typeof saved === 'object' ? saved : {}) }
   if (!COACH_MODES.includes(cache.mode)) cache.mode = 'off'
   return cache

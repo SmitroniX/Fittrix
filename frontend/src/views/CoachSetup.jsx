@@ -1,6 +1,6 @@
 // Mobile build only: how the Coach should run on this phone.
 //
-// Two answers. "Use my self-hosted openGym" hands the whole thing to the paired server — the
+// Two answers. "Use my self-hosted Fittrix" hands the whole thing to the paired server — the
 // same Coach the web app has, with whatever provider its admin configured; the phone only has
 // to be paired. "Bring my own API key" runs the pipeline on the phone against Anthropic,
 // OpenAI, Gemini or an OpenAI-compatible endpoint, with a key that stays in secure storage.

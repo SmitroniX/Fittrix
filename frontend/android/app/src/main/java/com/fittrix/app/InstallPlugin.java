@@ -1,4 +1,4 @@
-package ch.duartesantos.opengym;
+package com.fittrix.app;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -16,7 +16,7 @@ import java.io.File;
  * Usage from JS:
  *   import { registerPlugin } from '@capacitor/core';
  *   const Install = registerPlugin('Install');
- *   await Install.installApk({ fileName: 'opengym-update.apk' });
+ *   await Install.installApk({ fileName: 'fittrix-update.apk' });
  */
 @CapacitorPlugin(name = "Install")
 public class InstallPlugin extends Plugin {

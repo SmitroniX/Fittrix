@@ -1,7 +1,7 @@
-# openGym HTTP API — hand-written OpenAPI 3.1 spec.
+# Fittrix HTTP API — hand-written OpenAPI 3.1 spec.
 # Source of truth: api/server.js (a single framework-free Node file). Every route the
 # server registers is documented here; if you add a route there, add it here too.
-# Browsable version: https://opengym.duarte-santos.ch/api.html
+# Browsable version: /api.html
 openapi: 3.1.0
 
 info:
@@ -57,13 +57,13 @@ info:
     name: AGPL-3.0-or-later
     identifier: AGPL-3.0-or-later
   contact:
-    name: openGym
-    url: https://gitlab.com/DuarteSantos8/opengym
+    name: Fittrix
+    url: https://github.com/SmitroniX/Fittrix
 
 servers:
   - url: /
-    description: Same origin as the openGym web app (the normal deployment)
-  - url: https://opengym.example.com
+    description: Same origin as the Fittrix web app (the normal deployment)
+  - url: https://fittrix.example.com
     description: Your self-hosted instance
 
 tags:

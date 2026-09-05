@@ -92,7 +92,7 @@ ${JSON.stringify(input)}`
     if (envelope.is_error || !envelope.structured_output) throw new Error(envelope.result || 'Claude returned no structured output')
     structured = envelope.structured_output
   } else {
-    const temp = mkdtempSync(join(tmpdir(), 'opengym-pt-br-'))
+    const temp = mkdtempSync(join(tmpdir(), 'fittrix-pt-br-'))
     const schemaPath = join(temp, 'schema.json')
     const outputPath = join(temp, 'output.json')
     const codexSchema = {

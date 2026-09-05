@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "ch.duartesantos.opengym"
+    namespace "com.fittrix.app"
     compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "com.fittrix.app"

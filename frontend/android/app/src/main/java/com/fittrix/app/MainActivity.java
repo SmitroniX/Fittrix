@@ -1,4 +1,4 @@
-package ch.duartesantos.opengym;
+package com.fittrix.app;
 
 import android.os.Bundle;
 import com.getcapacitor.BridgeActivity;

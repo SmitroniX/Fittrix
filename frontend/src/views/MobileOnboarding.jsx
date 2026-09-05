@@ -1,5 +1,5 @@
 // Mobile build only, first launch: the choice useStore.boot() couldn't make on its own — keep
-// everything on this device, or connect to a self-hosted openGym server instead. See
+// everything on this device, or connect to a self-hosted Fittrix server instead. See
 // lib/remote.js for the pairing flow this hands off to.
 import { useState, useRef, useEffect } from 'react'
 import { useStore } from '../store/useStore.js'

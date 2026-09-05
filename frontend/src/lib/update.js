@@ -7,7 +7,7 @@
 
 import { MOBILE } from './mobile.js'
 
-const GITLAB_PROJECT_ID = 'DuarteSantos8%2Fopengym'
+const GITLAB_PROJECT_ID = 'SmitroniX%2Ffittrix'
 const RELEASES_URL = `https://gitlab.com/api/v4/projects/${GITLAB_PROJECT_ID}/releases`
 
 /**
@@ -86,7 +86,7 @@ export async function sha256(buffer) {
 export async function downloadAndInstall(url, expectedHash = null, onProgress = null) {
   if (!MOBILE) {
     // On web, just open the release page
-    window.open('https://gitlab.com/DuarteSantos8/opengym/-/releases', '_blank', 'noopener')
+    window.open('https://github.com/SmitroniX/Fittrix/releases', '_blank', 'noopener')
     return
   }
 
@@ -134,7 +134,7 @@ export async function downloadAndInstall(url, expectedHash = null, onProgress = 
     reader.readAsDataURL(blob)
   })
 
-  const fileName = 'opengym-update.apk'
+  const fileName = 'fittrix-update.apk'
   await Filesystem.writeFile({
     path: fileName,
     directory: Directory.Cache,

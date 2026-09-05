@@ -96,7 +96,7 @@ export default function Settings() {
       })
     } else {
       // Update available but no APK asset — open the releases page
-      window.open('https://gitlab.com/DuarteSantos8/opengym/-/releases', '_blank', 'noopener')
+      window.open('https://github.com/SmitroniX/Fittrix/releases', '_blank', 'noopener')
     }
   }
 

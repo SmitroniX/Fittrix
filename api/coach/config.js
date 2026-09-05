@@ -16,7 +16,7 @@
                  somebody's personal subscription is being spent by people who are not the
                  subscriber.
 
-   openGym does not interpret any provider's terms on a self-hoster's behalf. It just makes
+   Fittrix does not interpret any provider's terms on a self-hoster's behalf. It just makes
    the shape that doesn't need the interpretation available, and refuses the shape that does:
    in instance mode a *personal* credential (a Claude Code setup token, an OAuth login) binds
    to the first profile that uses it, and any other profile is refused rather than warned. A
@@ -93,12 +93,18 @@ const LOG_MAX = 100;
 /* ---------- at-rest encryption ---------- */
 
 let keyCache = null;
+let legacyKeyCache = null;
 function key() {
   if (keyCache) return keyCache;
-  // Read the secret lazily: server.js creates it at boot, and this module may be imported first.
   const secret = fs.readFileSync(path.join(DATA, 'secret'), 'utf8').trim();
-  keyCache = Buffer.from(crypto.hkdfSync('sha256', Buffer.from(secret, 'utf8'), Buffer.alloc(0), Buffer.from('opengym-coach-v1'), 32));
+  keyCache = Buffer.from(crypto.hkdfSync('sha256', Buffer.from(secret, 'utf8'), Buffer.alloc(0), Buffer.from('fittrix-coach-v1'), 32));
   return keyCache;
+}
+function legacyKey() {
+  if (legacyKeyCache) return legacyKeyCache;
+  const secret = fs.readFileSync(path.join(DATA, 'secret'), 'utf8').trim();
+  legacyKeyCache = Buffer.from(crypto.hkdfSync('sha256', Buffer.from(secret, 'utf8'), Buffer.alloc(0), Buffer.from('fittrix-coach-legacy'), 32));
+  return legacyKeyCache;
 }
 export function encrypt(obj) {
   const iv = crypto.randomBytes(12);
@@ -112,7 +118,16 @@ export function decrypt(blob) {
     const d = crypto.createDecipheriv('aes-256-gcm', key(), buf.subarray(0, 12));
     d.setAuthTag(buf.subarray(12, 28));
     return JSON.parse(Buffer.concat([d.update(buf.subarray(28)), d.final()]).toString('utf8'));
-  } catch { return null; }   // wrong key (restored ./data without the secret), or tampered file
+  } catch {
+    try {
+      const buf = Buffer.from(String(blob || ''), 'base64');
+      const d = crypto.createDecipheriv('aes-256-gcm', legacyKey(), buf.subarray(0, 12));
+      d.setAuthTag(buf.subarray(12, 28));
+      return JSON.parse(Buffer.concat([d.update(buf.subarray(28)), d.final()]).toString('utf8'));
+    } catch {
+      return null;
+    }
+  }   // wrong key (restored ./data without the secret), or tampered file
 }
 
 /* ---------- load / save ---------- */

@@ -60,14 +60,14 @@ describe('what survives a shared plan', () => {
   })
 
   it('clamps a hand-edited warm-up count instead of showing it verbatim', () => {
-    const bundle = { opengym_plan: 1, name: 'x', routines: [{ id: 'r', name: 'R', ex: [{ id: '0025', sets: 3, reps: 5, warmupSets: 999 }] }], week: {}, customEx: [] }
+    const bundle = { fittrix_plan: 1, name: 'x', routines: [{ id: 'r', name: 'R', ex: [{ id: '0025', sets: 3, reps: 5, warmupSets: 999 }] }], week: {}, customEx: [] }
     expect(parsePlan(bundle).routines[0].ex[0].warmupSets).toBe(5)
   })
 
   // A plan file is someone else's data: a rest that arrives as a string would reach the timer's
   // arithmetic as one, and a negative or garbage one has no meaning to keep.
   it('normalises a hand-edited rest to a positive whole number or drops it', () => {
-    const withRest = restSec => ({ opengym_plan: 1, name: 'x', routines: [{ id: 'r', name: 'R', ex: [{ id: '0025', sets: 3, reps: 5, restSec }] }], week: {}, customEx: [] })
+    const withRest = restSec => ({ fittrix_plan: 1, name: 'x', routines: [{ id: 'r', name: 'R', ex: [{ id: '0025', sets: 3, reps: 5, restSec }] }], week: {}, customEx: [] })
     expect(parsePlan(withRest('120')).routines[0].ex[0].restSec).toBe(120)
     expect(parsePlan(withRest(90.6)).routines[0].ex[0].restSec).toBe(91)
     expect('restSec' in parsePlan(withRest(-30)).routines[0].ex[0]).toBe(false)
@@ -77,12 +77,12 @@ describe('what survives a shared plan', () => {
   // The floors are the config sheet's own (count >= 1, pct >= 5); a value that is present but
   // out of range is pulled up to the floor, while a missing one falls back to the default.
   it('clamps out-of-range intensifier numbers to the floors the app enforces', () => {
-    const bundle = { opengym_plan: 1, name: 'x', routines: [{ id: 'r', name: 'R', ex: [{ id: '0025', sets: 3, reps: 5, intensifier: { type: 'dropset', count: 0, pct: -5 } }] }], week: {}, customEx: [] }
+    const bundle = { fittrix_plan: 1, name: 'x', routines: [{ id: 'r', name: 'R', ex: [{ id: '0025', sets: 3, reps: 5, intensifier: { type: 'dropset', count: 0, pct: -5 } }] }], week: {}, customEx: [] }
     expect(parsePlan(bundle).routines[0].ex[0].intensifier).toEqual({ type: 'dropset', count: 1, pct: 5 })
   })
 
   it('falls back to the default drop percentage when the file omits it', () => {
-    const bundle = { opengym_plan: 1, name: 'x', routines: [{ id: 'r', name: 'R', ex: [{ id: '0025', sets: 3, reps: 5, intensifier: { type: 'dropset' } }] }], week: {}, customEx: [] }
+    const bundle = { fittrix_plan: 1, name: 'x', routines: [{ id: 'r', name: 'R', ex: [{ id: '0025', sets: 3, reps: 5, intensifier: { type: 'dropset' } }] }], week: {}, customEx: [] }
     expect(parsePlan(bundle).routines[0].ex[0].intensifier).toEqual({ type: 'dropset', count: 1, pct: 20 })
   })
 })

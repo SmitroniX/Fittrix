@@ -1,10 +1,10 @@
-/* opengym-mcp state — reads ./data/state-<uid>.json + db.json (read-only). Cached with an
+/* fittrix-mcp state — reads ./data/state-<uid>.json + db.json (read-only). Cached with an
    fs.watch + mtime fallback so a session the api server just wrote is visible on the next
    tool call without a restart. */
 import fs from 'node:fs'
 import path from 'node:path'
 
-const DATA_DIR = process.env.OPENGYM_DATA || path.join(process.cwd(), 'data')
+const DATA_DIR = process.env.FITTRIX_DATA || path.join(process.cwd(), 'data')
 
 // null = no state file (brand-new account); undefined = not yet loaded.
 let _state = undefined
@@ -23,13 +23,13 @@ function stateFile(uid) {
   return path.join(DATA_DIR, 'state-' + uid.replace(/[^a-zA-Z0-9_-]/g, '') + '.json')
 }
 
-// Pick the uid: OPENGYM_UID env, else the only state-* file, else the only user in db.json.
+// Pick the uid: FITTRIX_UID env, else the only state-* file, else the only user in db.json.
 // Throws listing the options if ambiguous. The sanitiser on stateFile() keeps a sneaky
-// '..' in OPENGYM_UID harmless.
+// '..' in FITTRIX_UID harmless.
 function resolveUid() {
-  const envUid = (process.env.OPENGYM_UID || '').trim()
+  const envUid = (process.env.FITTRIX_UID || '').trim()
   if (envUid) {
-    if (!/^[a-zA-Z0-9_-]+$/.test(envUid)) throw new Error(`OPENGYM_UID contains characters that aren't safe in a filename: ${JSON.stringify(envUid)}`)
+    if (!/^[a-zA-Z0-9_-]+$/.test(envUid)) throw new Error(`FITTRIX_UID contains characters that aren't safe in a filename: ${JSON.stringify(envUid)}`)
     return envUid
   }
   const files = fs.readdirSync(DATA_DIR)
@@ -39,16 +39,16 @@ function resolveUid() {
   if (files.length === 0) {
     reloadDb()
     if (_db.users.length === 1) return _db.users[0].id
-    if (_db.users.length === 0) throw new Error(`no openGym users found in ${path.join(DATA_DIR, 'db.json')} — sign in at least once on a device`)
+    if (_db.users.length === 0) throw new Error(`no Fittrix users found in ${path.join(DATA_DIR, 'db.json')} — sign in at least once on a device`)
     // Multiple users in db.json but no state files yet — list their ids, not the (empty)
     // files list. Hit when accounts exist but none has signed in on a device.
     throw new Error(
-      `multiple openGym users found — set OPENGYM_UID to one of: ${_db.users.map(u => u.id).join(', ')}\n` +
+      `multiple Fittrix users found — set FITTRIX_UID to one of: ${_db.users.map(u => u.id).join(', ')}\n` +
       `  (look them up in ${path.join(DATA_DIR, 'db.json')} under "users"[].id)`
     )
   }
   throw new Error(
-    `multiple openGym users found — set OPENGYM_UID to one of: ${files.join(', ')}\n` +
+    `multiple Fittrix users found — set FITTRIX_UID to one of: ${files.join(', ')}\n` +
     `  (look them up in ${path.join(DATA_DIR, 'db.json')} under "users"[].id)`
   )
 }
@@ -56,7 +56,7 @@ function resolveUid() {
 // Idempotent. Picks the uid, loads db.json, attaches the watcher, primes state.
 export function init() {
   if (_uid !== null) return
-  if (!fs.existsSync(DATA_DIR)) throw new Error(`OPENGYM_DATA dir does not exist: ${DATA_DIR}`)
+  if (!fs.existsSync(DATA_DIR)) throw new Error(`FITTRIX_DATA dir does not exist: ${DATA_DIR}`)
   _uid = resolveUid()
   reloadDb()
   const file = stateFile(_uid)

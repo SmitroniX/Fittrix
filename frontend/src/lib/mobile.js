@@ -32,18 +32,12 @@ export async function isAndroid() {
 }
 
 const FILE = 'fittrix-state.json'
-const LEGACY_FILE = 'opengym-state.json'
 
 export async function nativeLoad() {
   try {
     const { Filesystem, Directory, Encoding } = await import('@capacitor/filesystem')
-    try {
-      const r = await Filesystem.readFile({ path: FILE, directory: Directory.Data, encoding: Encoding.UTF8 })
-      return JSON.parse(r.data)
-    } catch {
-      const r = await Filesystem.readFile({ path: LEGACY_FILE, directory: Directory.Data, encoding: Encoding.UTF8 })
-      return JSON.parse(r.data)
-    }
+    const r = await Filesystem.readFile({ path: FILE, directory: Directory.Data, encoding: Encoding.UTF8 })
+    return JSON.parse(r.data)
   } catch (e) { return null }   // first launch, or unreadable — localStorage copy takes over
 }
 

@@ -83,7 +83,7 @@ function prTable(S, formula) {
 /** list_routines — names + counts of each routine in the user's plan. */
 export const listRoutines = {
   name: 'list_routines',
-  description: 'List the workout routines saved in the user\'s openGym profile (the same list the Plan screen shows). Each routine is a named set of exercises with set/rep targets. Use this to discover the plan structure before diving into a specific routine or today\'s workout.',
+  description: 'List the workout routines saved in the user\'s Fittrix profile (the same list the Plan screen shows). Each routine is a named set of exercises with set/rep targets. Use this to discover the plan structure before diving into a specific routine or today\'s workout.',
   schema: {},
   handler: () => {
     const S = getState()
@@ -155,7 +155,7 @@ export const getRoutine = {
 /** get_week_plan — what's scheduled each weekday + today. */
 export const getWeekPlan = {
   name: 'get_week_plan',
-  description: 'Show the user\'s weekly plan: which routine (if any) is assigned to each weekday, keyed by JS getDay() (Sunday=0, Monday=1, … Saturday=6 — the same convention the openGym state file uses). Also reports today\'s date and what routine applies today, accounting for one-off overrides the user may have set for a specific date (a "rest" override cancels the day).',
+  description: 'Show the user\'s weekly plan: which routine (if any) is assigned to each weekday, keyed by JS getDay() (Sunday=0, Monday=1, … Saturday=6 — the same convention the Fittrix state file uses). Also reports today\'s date and what routine applies today, accounting for one-off overrides the user may have set for a specific date (a "rest" override cancels the day).',
   schema: {},
   handler: () => {
     const S = getState()
@@ -570,7 +570,7 @@ export const TOOLS = [
 
 function noState() {
   return {
-    error: 'no synced state yet — sign in at least once from a device so the openGym api can save a state file for this profile',
+    error: 'no synced state yet — sign in at least once from a device so the Fittrix api can save a state file for this profile',
     unit: 'kg'
   }
 }

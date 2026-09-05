@@ -1,6 +1,6 @@
-# Contributing to openGym
+# Contributing to Fittrix
 
-Thanks for taking a look! openGym is intentionally small and dependency-light, and the goal is
+Thanks for taking a look! Fittrix is intentionally small and dependency-light, and the goal is
 to keep it that way — easy to read, easy to self-host.
 
 ## Project layout
@@ -70,9 +70,9 @@ here before, otherwise a maintainer presses "Run pipeline" after a first look at
 | You have | Goes to |
 | --- | --- |
 | A quick question, or you'd rather just chat | [The Discord](https://discord.gg/e62jY6fwVb) |
-| A question, or self-hosting that won't behave | [An issue labelled `question`](https://gitlab.com/DuarteSantos8/opengym/-/issues) |
-| An idea you're not sure about yet | [An issue labelled `idea`](https://gitlab.com/DuarteSantos8/opengym/-/issues) |
-| A reproducible bug | [Issues](https://gitlab.com/DuarteSantos8/opengym/-/issues) |
+| A question, or self-hosting that won't behave | [An issue labelled `question`](https://github.com/SmitroniX/Fittrix/issues) |
+| An idea you're not sure about yet | [An issue labelled `idea`](https://github.com/SmitroniX/Fittrix/issues) |
+| A reproducible bug | [Issues](https://github.com/SmitroniX/Fittrix/issues) |
 | A change you've already built | A merge request |
 
 GitLab has no Discussions, so questions and ideas are issues too — just labelled, so nobody

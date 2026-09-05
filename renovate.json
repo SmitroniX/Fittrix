@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "description": [
     "Dependency updates, deliberately quiet — the GitLab counterpart of .github/dependabot.yml,",
-    "with the same policy behind it. openGym is dependency-light on purpose: the frontend is",
+    "with the same policy behind it. Fittrix is dependency-light on purpose: the frontend is",
     "React + Router + Zustand, api/ has two runtime dependencies. A default setup would still",
     "open an MR per package per week, which on a solo project means the MRs stop being read —",
     "the opposite of what this is for. So: monthly, everything in an ecosystem grouped into one",

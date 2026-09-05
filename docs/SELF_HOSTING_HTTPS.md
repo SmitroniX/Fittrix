@@ -1,7 +1,7 @@
 # Selfhosting with HTTPS
 
-This is a rather complex topic of its own, so it lives apart from the [SELF_HOSTING.md](./SELF_HOSTING.md) which focuses on how to run openGym.
-This document takes a more general approach on how to achieve "https at home", it is not necessarily focused on openGym and applies to self hosting in general.
+This is a rather complex topic of its own, so it lives apart from the [SELF_HOSTING.md](./SELF_HOSTING.md) which focuses on how to run Fittrix.
+This document takes a more general approach on how to achieve "https at home", it is not necessarily focused on Fittrix and applies to self hosting in general.
 
 When self-hosting it is often assumed that one needs to expose their services to the internet, this is not necessarily the case.  
 We can have https certificates without having to expose our precious hosts to the world. You can still do that if you want to access your applications from the internet without any VPN, but it's not necessary to take the risk.
@@ -59,8 +59,8 @@ We configure the proxy to forward requests to our individual services like so:
 ```mermaid
 graph TD
     A[proxy]
-    A <-->B[openGym :8080]
-    A <-->C[openGym-api :3000]
+    A <-->B[Fittrix :8080]
+    A <-->C[Fittrix-api :3000]
     A <-->D[Nextcloud :8081]
 ```
 Now we have a nice URL and can forget about the ports. The proxy reads the URL request and forwards it to the target service/host.
@@ -69,7 +69,7 @@ Now we have a nice URL and can forget about the ports. The proxy reads the URL r
 
 So how does it all come together?
 
-1. DNS provider translates name to the local IP of homelab (e.g.: `https://opengym.myhomelab.dedyn.io -> http://192.168.0.100:8080`)
+1. DNS provider translates name to the local IP of homelab (e.g.: `https://fittrix.myhomelab.dedyn.io -> http://192.168.0.100:8080`)
 1. the proxy listens to the local IP and provides HTTPS
 1. Let's encrypt provides certificates with certbot
 
@@ -85,12 +85,12 @@ But the main tasks are the same, so you can adapt to your choice.
 Additional info:
 - homelab host: 192.168.0.100  
   running services:  
-    - opengym on port 8080
+    - fittrix on port 8080
     - nextcloud on port 8081
 
 1. register with desec.io and choose a name (we take `myhomelab` as example)
     1. create a new A record that points to your service, e.g.: `*.myhomelab.dedyn.io` (Wildcard!) - 192.168.0.100 (the ip of your homelab/mini PC/Raspberry Pi running the proxy)
-    2. A wildcard certificate handles all certificates for that given host. e.g.: `opengym.myhomelab.dedyn.io` and `nextcloud.myhomelab.dedyn.io` can share the same certificates.
+    2. A wildcard certificate handles all certificates for that given host. e.g.: `fittrix.myhomelab.dedyn.io` and `nextcloud.myhomelab.dedyn.io` can share the same certificates.
     3. create an API token for the certbot plugin. It only needs to write records inside your domain — leave `Can create domains` and `Can delete domains` **off**; a leaked token should not be able to take your domain apart. Note the token, it is only displayed once.
 2. install certbot on your host
     1. most linux distributions provide the packages for this, e.g. debian: `apt install certbot python3-certbot-dns-desec` check the [docs](https://desec.readthedocs.io/en/latest/integrations/lets-encrypt.html) 
@@ -126,8 +126,8 @@ Additional info:
                 protocols tls1.3
         }
     }
-    # reverse proxy config for opengym
-    opengym.myhomelab.dedyn.io {
+    # reverse proxy config for fittrix
+    fittrix.myhomelab.dedyn.io {
         import desec
         reverse_proxy http://192.168.0.100:8080
     }
@@ -138,13 +138,13 @@ Additional info:
     }
     ```
 
-And that's about it. Now you should be able to access your opengym instance from your local network via https with working passkeys.  
-Be sure to update the openGym config accordingly (`RP_ID=opengym.myhomelab.dedyn.io`, `ORIGIN=https://opengym.myhomelab.dedyn.io` — see [SELF_HOSTING.md](./SELF_HOSTING.md#2-understand-the-passkey-requirement-important)).
+And that's about it. Now you should be able to access your fittrix instance from your local network via https with working passkeys.  
+Be sure to update the Fittrix config accordingly (`RP_ID=fittrix.myhomelab.dedyn.io`, `ORIGIN=https://fittrix.myhomelab.dedyn.io` — see [SELF_HOSTING.md](./SELF_HOSTING.md#2-understand-the-passkey-requirement-important)).
 
 **If the name does not resolve on your phone:** many home routers (Fritz!Box, some ISP boxes) have *DNS rebind protection* and silently drop public names that resolve to a private IP. Add `myhomelab.dedyn.io` to the router's rebind exception list, or run your own resolver.
 
 usable URLs in this example:
-- `https://opengym.myhomelab.dedyn.io -> http://192.168.0.100:8080`
+- `https://fittrix.myhomelab.dedyn.io -> http://192.168.0.100:8080`
 - `https://nextcloud.myhomelab.dedyn.io -> http://192.168.0.100:8081`
 
 Note that the SSL/HTTPS termination is only at the proxy, the service does not have any certificates whatsoever.

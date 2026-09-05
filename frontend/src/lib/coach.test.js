@@ -428,7 +428,7 @@ describe('created plans', () => {
   })
 
   const bundle = {
-    opengym_plan: 1, name: 'Coach plan', summary: 'three days',
+    fittrix_plan: 1, name: 'Coach plan', summary: 'three days',
     week: { 1: 'x1', 3: 'x2' },
     routines: [
       { id: 'x1', name: 'A', emoji: '💪', why: 'why A', ex: [{ id: '0001', sets: 3, reps: 10, mode: 'reps', why: 'why ex' }] },
@@ -556,7 +556,7 @@ describe('removing a routine takes its per-date reschedules with it', () => {
 
 describe('what the log keeps, so a decision never makes a proposal vanish', () => {
   const plan = {
-    opengym_plan: 1, name: 'Coach plan', summary: 'p', week: { 1: 'x1' },
+    fittrix_plan: 1, name: 'Coach plan', summary: 'p', week: { 1: 'x1' },
     routines: [{ id: 'x1', name: 'A', emoji: '💪', why: 'w', ex: [{ id: '0001', sets: 3, reps: 10, mode: 'reps', why: 'y'.repeat(300), secret: 1 }] }],
     customEx: []
   }

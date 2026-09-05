@@ -1,6 +1,6 @@
-# Self-hosting openGym
+# Self-hosting Fittrix
 
-openGym is two small containers (a web server and an API) plus a folder of your data.
+Fittrix is two small containers (a web server and an API) plus a folder of your data.
 This guide takes you from "just cloned it" to "using it from my phone over the internet".
 
 ## 1. Run it locally (5 minutes)
@@ -8,8 +8,8 @@ This guide takes you from "just cloned it" to "using it from my phone over the i
 Requirements: [Docker](https://docs.docker.com/get-docker/) with the Compose plugin.
 
 ```bash
-git clone https://gitlab.com/DuarteSantos8/opengym
-cd openGym
+git clone https://github.com/SmitroniX/Fittrix
+cd Fittrix
 cp .env.example .env
 docker compose pull   # prebuilt images from GitLab (amd64 + arm64) — or skip and build from source
 docker compose up -d
@@ -31,14 +31,14 @@ Logs: `docker compose logs -f`. Stop: `docker compose down`.
 
 ## 2. Understand the passkey requirement (important)
 
-openGym signs you in with **passkeys** (WebAuthn). Browsers enforce two rules:
+Fittrix signs you in with **passkeys** (WebAuthn). Browsers enforce two rules:
 
 1. Passkeys are bound to an exact **hostname** (`RP_ID`).
 2. They only work over **HTTPS** — with one exception: `http://localhost`.
 
 So `http://localhost:8080` works on the machine running Docker, but **another device (your
 phone) cannot use `http://<your-LAN-ip>:8080`** — that's neither localhost nor HTTPS, so the
-passkey prompt won't appear. To use openGym from your phone you need a real HTTPS hostname.
+passkey prompt won't appear. To use Fittrix from your phone you need a real HTTPS hostname.
 
 (You can still open it over LAN in **guest mode**, which stores data only in that browser.)
 
@@ -61,7 +61,7 @@ you're poking at the API directly:
 
 > Want HTTPS **without** exposing anything to the internet — a valid certificate on a LAN-only address? See [SELF_HOSTING_HTTPS.md](./SELF_HOSTING_HTTPS.md) (wildcard cert via a DNS challenge, Caddy in front).
 
-Put openGym behind something that terminates TLS for a hostname you control, then point it at
+Put Fittrix behind something that terminates TLS for a hostname you control, then point it at
 the `web` container. Pick whichever you already run:
 
 ### Option A — Cloudflare Tunnel (no open ports)
@@ -80,7 +80,7 @@ gym.example.com {
 ### Option C — Traefik / nginx / Nginx Proxy Manager
 
 Route `gym.example.com` (HTTPS) → `web:80` (or `<docker-host>:8080`). Any reverse proxy works —
-openGym only needs the browser to reach it over `https://gym.example.com`.
+Fittrix only needs the browser to reach it over `https://gym.example.com`.
 
 Then set your domain in `.env` and restart:
 
@@ -89,7 +89,7 @@ Then set your domain in `.env` and restart:
 RP_ID=gym.example.com
 ORIGIN=https://gym.example.com
 WEB_PORT=8080
-RP_NAME=openGym
+RP_NAME=Fittrix
 ```
 
 ```bash
@@ -159,7 +159,7 @@ Access…) in front still works, and composes with the above.
 
 ## 5. Fitting it into an existing stack
 
-The defaults assume openGym is the only thing here: a service called `api` on port 3000, and nginx
+The defaults assume Fittrix is the only thing here: a service called `api` on port 3000, and nginx
 on port 80 inside its container. If you are merging this into a compose file that already has an
 `api`, or you put the web container behind your own reverse proxy on a different port, four
 settings in `.env` move those without editing any config file:
@@ -185,7 +185,7 @@ nothing to an image you pulled.
 Everything is in `./data`:
 
 ```bash
-tar czf opengym-backup-$(date +%F).tar.gz data/
+tar czf fittrix-backup-$(date +%F).tar.gz data/
 ```
 
 That archive contains all profiles, passkeys and workout history — and, if the activity log is
@@ -206,7 +206,7 @@ in this archive — and unreadable without the secret next to them, like everyth
 
 ## 7. Notifications
 
-openGym can push two kinds of alert to your phone/desktop, even when the app isn't open:
+Fittrix can push two kinds of alert to your phone/desktop, even when the app isn't open:
 rest-timer-over, and a reminder on days you have a workout planned but haven't logged one yet.
 Turn it on per-profile in **Settings → Notifications** (requires a signed-in passkey profile and
 HTTPS — see section 3).
@@ -222,7 +222,7 @@ instance the switch shows as unsupported. Nothing to configure server-side eithe
 refuses the lock while the phone is in Low Power Mode.
 
 Push services like a contact address for whoever runs the server, in case they ever need to reach
-you about your pushes. openGym sends your `ORIGIN` by default; set `VAPID_SUBJECT=mailto:you@example.com`
+you about your pushes. Fittrix sends your `ORIGIN` by default; set `VAPID_SUBJECT=mailto:you@example.com`
 in `.env` if you would rather they had an inbox.
 
 ## 8. Updating

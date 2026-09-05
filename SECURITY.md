@@ -1,6 +1,6 @@
 # Security policy
 
-openGym is a self-hosted app: you run the server, you hold the data. This file says which
+Fittrix is a self-hosted app: you run the server, you hold the data. This file says which
 versions get fixes, how to report something privately, and — the part most people actually
 need — what the app protects you from and what it doesn't.
 
@@ -20,7 +20,7 @@ git pull && docker compose pull && docker compose up -d
 
 The project lives on GitLab. It has no security-advisory workflow on the free tier, but it does
 have **confidential issues**, and that is the private channel: open an issue at
-<https://gitlab.com/DuarteSantos8/opengym/-/issues/new> and tick **"This issue is confidential"**
+<https://github.com/SmitroniX/Fittrix/issues/new> and tick **"This issue is confidential"**
 *before* you submit. A confidential issue is readable only by project members — you'll see it,
 I'll see it, nobody else will, and it stays that way if it is later closed.
 
@@ -29,7 +29,7 @@ If you'd rather not put the details in GitLab at all, open a confidential issue 
 one back within a couple of days.
 
 > The GitHub repo and its private vulnerability reporting are gone with the suspended account;
-> `github.com/DuarteSantos8/openGym/security/advisories/new` no longer resolves.
+> `github.com/SmitroniX/Fittrix/security/advisories/new` no longer resolves.
 
 Please don't put a working exploit in a *non-confidential* issue if it can be used against other
 people's instances — and not in the Discord either, which is a public room. Everything else (a crash you can only trigger on your own box, a scanner warning)
@@ -54,7 +54,7 @@ in the thread; there's no objection, and no request to sit on it indefinitely.
   change a signed-in user's data.
 - **Shipped deployment config** — `docker-compose.yml`, `web/nginx.conf`, the two Dockerfiles:
   a default that exposes something a self-hoster wouldn't expect to be exposed.
-- **The published images** `registry.gitlab.com/duartesantos8/opengym/api` and `/web`.
+- **The published images** `ghcr.io/smitronix/fittrix-api` and `/web`.
 
 ## Out of scope
 
@@ -80,7 +80,7 @@ in the thread; there's no objection, and no request to sit on it indefinitely.
 
 ## Security model
 
-Read this before hosting openGym for anyone other than yourself.
+Read this before hosting Fittrix for anyone other than yourself.
 
 ### What it does
 
@@ -130,7 +130,7 @@ Read this before hosting openGym for anyone other than yourself.
   subscriptions, invite codes), one `state-<uid>.json` per user with their complete workout
   history and body-weight log, `audit.log`, `secret`, and `vapid.json`. Anyone who can read that folder — you,
   whoever holds the backups, whoever gets into the host — can read every user's data, and with
-  `secret` can mint a valid session cookie for any account. **If you host openGym for other
+  `secret` can mint a valid session cookie for any account. **If you host Fittrix for other
   people, they are trusting you exactly as much as they'd trust any server operator.** With the
   activity log on, `./data/audit.log` adds everyone's sign-in times to that — worth remembering
   before an archive of `./data` goes somewhere you don't run.

@@ -3,7 +3,7 @@
 # You normally DON'T need this — `docker compose up` fetches them automatically.
 # Source: hasaneyldrm/exercises-dataset — MIT for the metadata and instruction text, but the
 # images and GIFs are © Gym visual (https://gymvisual.com/), used under that dataset's terms.
-# openGym does not redistribute or relicense them. See NOTICE.md.
+# Fittrix does not redistribute or relicense them. See NOTICE.md.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 tmp="$(mktemp -d)"
@@ -12,7 +12,7 @@ cat <<'EOF'
 ↓ Downloading exercise media (~140 MB) from github.com/hasaneyldrm/exercises-dataset
   Metadata and instruction text: MIT.
   Images and animations: © Gym visual — https://gymvisual.com/
-  Used under that dataset's terms, not openGym's AGPL; openGym does not redistribute them.
+  Used under that dataset's terms, not Fittrix's AGPL; Fittrix does not redistribute them.
   Terms: https://gymvisual.com/content/3-terms-and-conditions-of-use
   Reusing this media yourself, commercially or not, needs your own licence from Gym visual.
   Details in NOTICE.md.
