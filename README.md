@@ -1,14 +1,14 @@
 <div align="center">
 
-<img src="assets/banner.png" alt="openGym" width="720">
+# ⚡ Fittrix
 
-<br>
-
-**A self-hosted gym & body-weight tracker you actually own.**
+**A modern, private gym & fitness app & web platform you actually own.**
 
 Plan your week, run guided workouts, track every set and your body weight over time —
 on your phone, synced across devices, behind your own passkey login.
-No account on someone else's server, no subscription, no ads. Just `docker compose up`.
+No subscription, no ads, full privacy.
+
+</div>
 
 <br>
 

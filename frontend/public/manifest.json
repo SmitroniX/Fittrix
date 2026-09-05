@@ -1,7 +1,7 @@
 {
-  "name": "openGym",
-  "short_name": "openGym",
-  "description": "Personal gym & body weight tracker",
+  "name": "Fittrix",
+  "short_name": "Fittrix",
+  "description": "Fittrix - Personal gym, workout & body weight tracker",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

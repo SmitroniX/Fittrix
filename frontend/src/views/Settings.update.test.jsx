@@ -86,7 +86,7 @@ const mount = async () => {
   await act(async () => { root.render(<Settings />) })
   await act(async () => { await Promise.resolve(); await Promise.resolve() })
 }
-const updateRow = () => [...host.querySelectorAll('.lrow')].find(r => r.textContent.includes('openGym v9.9.9 available'))
+const updateRow = () => [...host.querySelectorAll('.lrow')].find(r => r.textContent.includes('Fittrix v9.9.9 available'))
 
 describe('Settings — in-app update check', () => {
   it('web build: never asks for releases and shows no update row', async () => {

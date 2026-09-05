@@ -25,7 +25,7 @@ export function ConnectSheet({ close }) {
   return <>
     <h3>{t('Connect to my server')}</h3>
     <div className="muted small" style={{ marginBottom: 14 }}>
-      {t('Open Settings → “Pair the mobile app” on the openGym site you’re already signed into, then enter its address and the code shown there.')}
+      {t('Open Settings → “Pair the mobile app” on the Fittrix site you’re already signed into, then enter its address and the code shown there.')}
     </div>
     <input ref={ref} className="input" placeholder={t('Server address (e.g. gym.example.com)')} value={url}
       onChange={e => setUrl(e.target.value)} autoCapitalize="none" autoCorrect="off" inputMode="url" />
@@ -41,18 +41,18 @@ export default function MobileOnboarding() {
   const { chooseLocalMode } = useStore()
   const head = <>
     <div style={{ fontSize: 54, display: 'flex', justifyContent: 'center', color: 'var(--acc)' }}><Icon name="dumbbell" /></div>
-    <h1 style={{ fontSize: 34, fontWeight: 700, letterSpacing: '-.028em', margin: '10px 0 4px' }}>openGym</h1>
+    <h1 style={{ fontSize: 34, fontWeight: 700, letterSpacing: '-.028em', margin: '10px 0 4px' }}>Fittrix</h1>
   </>
   const wrap = { display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: '78vh', textAlign: 'center' }
   return (
     <div className="narrow" style={wrap}>
       {head}
-      <div className="muted" style={{ marginBottom: 34 }}>{t('How do you want to use openGym?')}</div>
+      <div className="muted" style={{ marginBottom: 34 }}>{t('How do you want to use Fittrix?')}</div>
       <Button variant="primary" icon="lock" onClick={() => chooseLocalMode()}>{t('Use on this device')}</Button>
       <div style={{ height: 10 }} />
       <Button icon="rocket" onClick={() => useUI.getState().openSheet(close => <ConnectSheet close={close} />)}>{t('Connect to my server')}</Button>
       <div className="dim small" style={{ marginTop: 26, lineHeight: 1.5 }}>
-        {t('Local keeps everything on this phone. Connecting syncs to your own openGym server instead — you can switch later in Settings.')}
+        {t('Local keeps everything on this phone. Connecting syncs to your own Fittrix server instead — you can switch later in Settings.')}
       </div>
     </div>
   )

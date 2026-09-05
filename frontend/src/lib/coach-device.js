@@ -10,7 +10,8 @@
 // anything, and the promise there is that nothing AI-shaped loads until they do.
 import { readJsonFile, writeJsonFile } from './mobile.js'
 
-const FILE = 'opengym-coach.json'
+const FILE = 'fittrix-coach.json'
+const LEGACY_FILE = 'opengym-coach.json'
 
 export const COACH_MODES = ['off', 'server', 'byok']
 
@@ -19,7 +20,8 @@ const DEFAULTS = { mode: 'off', provider: null, model: null, baseUrl: null, hand
 let cache = null
 export async function loadCoachDevice() {
   if (cache) return cache
-  const saved = await readJsonFile(FILE)
+  let saved = await readJsonFile(FILE)
+  if (!saved) saved = await readJsonFile(LEGACY_FILE)
   cache = { ...DEFAULTS, ...(saved && typeof saved === 'object' ? saved : {}) }
   if (!COACH_MODES.includes(cache.mode)) cache.mode = 'off'
   return cache
