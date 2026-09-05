@@ -666,9 +666,10 @@ section { padding: var(--sec) 0 0; }
   content: ""; width: 5px; height: 5px;
   border-right: 1.7px solid currentColor; border-bottom: 1.7px solid currentColor;
   transform: rotate(-45deg); transition: transform .25s var(--ease);
-}
 .pad:hover .pad-go::after { transform: rotate(-45deg) translate(2px, 2px); }
 
+.pad.github  { --brand: #e6edf3; }
+:root[data-theme="light"] .pad.github { --brand: #24292f; }
 .pad.gitlab  { --brand: #fc6d26; }
 .pad.bmc     { --brand: #ffdd00; }
 .pad.discord { --brand: #5865f2; }
