@@ -165,7 +165,7 @@ mobile app is the install-and-done flavor.
 - **api/** — Node with no framework, two dependencies (`@simplewebauthn/server` for passkeys, `web-push` for notifications), storing everything as plain JSON files under `./data`
 - **web/** — a multi-stage image that builds the frontend and serves it with nginx, proxying `/api` to the backend so it's all on **one origin** (passkeys require this)
 
-The full HTTP API is documented as an OpenAPI spec in [`api/openapi.yaml`](api/openapi.yaml) — browsable at [fittrix.duarte-santos.ch/api.html](https://github.com/SmitroniX/Fittrix/api.html).
+The full HTTP API is documented as an OpenAPI spec in [`api/openapi.yaml`](api/openapi.yaml) — browsable at [`website/api.html`](website/api.html).
 
 ## Your data
 
@@ -248,15 +248,10 @@ in the Docker build.
   an issue over the Discord for anything the next person should be able to find by searching.
 - **Login trouble?** Most of it is an `RP_ID`/`ORIGIN` mismatch — check
   [docs/SELF_HOSTING.md](docs/SELF_HOSTING.md) before opening an issue.
-- **Merge requests** — [open one on GitLab](https://github.com/SmitroniX/Fittrix/pulls); see
+- **Merge requests & PRs** — [open one on GitHub](https://github.com/SmitroniX/Fittrix/pulls) or [GitLab](https://gitlab.com/jogdandasmit/Fittrix/-/merge_requests); see
   [CONTRIBUTING.md](CONTRIBUTING.md).
 
-> **On the GitHub repo:** `github.com/DuarteSantos8/Fittrix` is offline because the account was
-> suspended. **GitLab is the home of the project** — same history, same tags, same releases, and
-> the CI that builds the images and the APK runs there. (gitea.com/DuarteSantos/Fittrix was the
-> first stopgap and is now only a mirror.) Old GitHub issue and PR numbers in
-> [CHANGELOG.md](CHANGELOG.md) are kept as plain references; they don't map onto GitLab's
-> numbering.
+- **Repositories:** Available on both [GitHub (SmitroniX/Fittrix)](https://github.com/SmitroniX/Fittrix) and [GitLab (jogdandasmit/Fittrix)](https://gitlab.com/jogdandasmit/Fittrix).
 
 ## Contributing
 

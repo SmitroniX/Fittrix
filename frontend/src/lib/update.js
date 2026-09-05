@@ -7,7 +7,7 @@
 
 import { MOBILE } from './mobile.js'
 
-const GITLAB_PROJECT_ID = 'SmitroniX%2Ffittrix'
+const GITLAB_PROJECT_ID = 'jogdandasmit%2FFittrix'
 const RELEASES_URL = `https://gitlab.com/api/v4/projects/${GITLAB_PROJECT_ID}/releases`
 
 /**

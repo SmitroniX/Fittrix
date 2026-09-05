@@ -1,4 +1,4 @@
-# openGym — GitLab CI/CD
+# Fittrix — GitLab CI/CD
 #
 # This is the pipeline that actually gates and ships the project. It replaces the
 # GitHub Actions workflows (.github/, dormant since the account suspension) and the
@@ -10,7 +10,7 @@
 #                 job also measures the bundle and compares it with main's.
 #                 On a v* tag: release:preflight checks tag, package versions and CHANGELOG
 #                 before anything expensive starts.
-#   build       — the two container images → registry.gitlab.com/duartesantos8/opengym/{api,web},
+#   build       — the two container images → registry.gitlab.com/jogdandasmit/fittrix/{api,web},
 #                 and a run of both api targets that proves what each one does and does not carry
 #   package     — the signed Android APK → job artifact + generic package registry
 #   verify      — the images that were just pushed, started together through docker-compose.yml
@@ -268,7 +268,7 @@ test:api:
 
 # --------------------------------------------------------------------------- images
 
-# Images land at registry.gitlab.com/duartesantos8/opengym/{api,web} and are what
+# Images land at registry.gitlab.com/jogdandasmit/fittrix/{api,web} and are what
 # `docker compose pull` fetches.
 #
 # On a v* tag: linux/amd64 + linux/arm64, tagged X.Y.Z, X.Y and latest.
@@ -336,7 +336,7 @@ build:images:
         PLATFORMS="linux/amd64"
         TAGS="-t $REPO:edge -t $REPO:$VERSION"
       fi
-      docker buildx create --use --name opengym --driver docker-container tls-environment
+      docker buildx create --use --name fittrix --driver docker-container tls-environment
       # shellcheck disable=SC2086
       docker buildx build \
         --platform "$PLATFORMS" \
@@ -386,23 +386,23 @@ build:api-check:
   stage: build
   needs: ["test:api"]
   script:
-    - docker build --target default -t opengym-api:default ./api
-    - docker build --target coach   -t opengym-api:coach   ./api
+    - docker build --target default -t fittrix-api:default ./api
+    - docker build --target coach   -t fittrix-api:coach   ./api
     # No --target, exactly like build:images. What it ships is whatever Dockerfile stage happens
     # to be last, and that untargeted artifact is the image every self-hoster pulls as :latest.
-    - docker build -t opengym-api:published ./api
+    - docker build -t fittrix-api:published ./api
     # --- the published image has no AI runtime, and does not need one for the HTTPS providers
     - |
       set -eu
-      docker run --rm opengym-api:published node -e \
+      docker run --rm fittrix-api:published node -e \
         'import("@anthropic-ai/claude-agent-sdk").then(()=>{console.error("AI runtime present in the published image -- the last Dockerfile stage is no longer the runtime-free one");process.exit(1)},()=>process.exit(0))'
-      ! docker run --rm opengym-api:published codex --version 2>/dev/null
-      ! docker run --rm opengym-api:published bwrap --version 2>/dev/null
+      ! docker run --rm fittrix-api:published codex --version 2>/dev/null
+      ! docker run --rm fittrix-api:published bwrap --version 2>/dev/null
       # npm is stripped from the published image (see api/Dockerfile) — its bundled tree was
       # the only source of scanner findings, and nothing at runtime needs it.
-      ! docker run --rm opengym-api:published npm --version 2>/dev/null
-      ! docker run --rm opengym-api:published test -d /usr/local/lib/node_modules/npm
-      docker run --rm opengym-api:published node --input-type=module -e '
+      ! docker run --rm fittrix-api:published npm --version 2>/dev/null
+      ! docker run --rm fittrix-api:published test -d /usr/local/lib/node_modules/npm
+      docker run --rm fittrix-api:published node --input-type=module -e '
         const { adapterFor } = await import("./coach/adapters/index.js");
         for (const id of ["anthropic", "openai", "gemini", "compatible"]) {
           const a = adapterFor(id);
@@ -416,38 +416,38 @@ build:api-check:
     - |
       set -eu
       docker network create api-net
-      docker run -d --name api-default --network api-net -e DATA_DIR=/data opengym-api:default
+      docker run -d --name api-default --network api-net -e DATA_DIR=/data fittrix-api:default
       for i in $(seq 1 30); do
         docker run --rm --network api-net curlimages/curl:8.12.1 -fsS http://api-default:3000/api/config >/dev/null 2>&1 && break
         sleep 1
       done
       docker run --rm --network api-net curlimages/curl:8.12.1 -fsS http://api-default:3000/api/config | tee /dev/stderr | grep -q '"invite_only"'
-      docker run --rm opengym-api:default node -e \
+      docker run --rm fittrix-api:default node -e \
         'import("@anthropic-ai/claude-agent-sdk").then(()=>{console.error("AI runtime present in the default image");process.exit(1)},()=>process.exit(0))'
       docker rm -f api-default
       docker network rm api-net
     # --- the coach image carries a runnable Agent SDK, Codex and its sandbox
     - |
       set -eu
-      docker run --rm opengym-api:coach node --input-type=module -e '
+      docker run --rm fittrix-api:coach node --input-type=module -e '
         const { adapterFor } = await import("./coach/adapters/index.js");
         const r = await adapterFor("claude").check();
         if (!r.ok) { console.error(r.error); process.exit(1); }
         console.log(r.version);
       '
-      docker run --rm opengym-api:coach codex --version
-      docker run --rm opengym-api:coach bwrap --version
+      docker run --rm fittrix-api:coach codex --version
+      docker run --rm fittrix-api:coach bwrap --version
       # Owned by the user jobs drop to, and 0700 — a credential cache readable by anything else
       # in the container would undo the point of dropping privileges at all.
-      test "$(docker run --rm opengym-api:coach stat -c '%U %a' /coach-auth)" = "coach 700"
+      test "$(docker run --rm fittrix-api:coach stat -c '%U %a' /coach-auth)" = "coach 700"
     # --- neither Codex nor its sandbox is in the default image; the privilege drop can be performed
     - |
       set -eu
-      ! docker run --rm opengym-api:default codex --version 2>/dev/null
-      ! docker run --rm opengym-api:default bwrap --version 2>/dev/null
+      ! docker run --rm fittrix-api:default codex --version 2>/dev/null
+      ! docker run --rm fittrix-api:default bwrap --version 2>/dev/null
       # canDropPrivileges() fails closed for the runtime-backed providers, so a missing `coach`
       # user disables every one of their jobs — including the fixture. Cheaper to assert here.
-      docker run --rm opengym-api:default id coach
+      docker run --rm fittrix-api:default id coach
   rules:
     - !reference [.rules, not_on_schedule]
     - *release_tag
@@ -470,11 +470,11 @@ build:web-check:
   stage: build
   needs: ["test:frontend"]
   script:
-    - docker build -f web/Dockerfile -t opengym-web:check .
+    - docker build -f web/Dockerfile -t fittrix-web:check .
     # It serves the app shell, and the shell is this build (the Coach setup is in the bundle).
     - |
       set -eu
-      docker run -d --name web-check -e BACKEND=127.0.0.1 -e PORT=3000 opengym-web:check
+      docker run -d --name web-check -e BACKEND=127.0.0.1 -e PORT=3000 fittrix-web:check
       sleep 2
       docker exec web-check wget -qO- http://127.0.0.1/ | grep -q '<div id="root">'
       docker exec web-check sh -c 'grep -l "coach" /usr/share/nginx/html/assets/index-*.js >/dev/null'
@@ -498,12 +498,12 @@ build:web-check:
 
 # The official signed APK. Signing keys live in protected CI variables, so they only
 # exist on protected refs (main and v* tags) — a fork's MR builds an unsigned APK and
-# cannot get at the key. Sideload-only by design: openGym is on no app store.
+# cannot get at the key. Sideload-only by design: Fittrix is on no app store.
 #
 # Needs three CI/CD variables (Settings → CI/CD → Variables), all *protected*:
-#   ANDROID_KEYSTORE_B64       file    base64 of opengym-release.keystore
+#   ANDROID_KEYSTORE_B64       file    base64 of fittrix-release.keystore
 #   ANDROID_KEYSTORE_PASSWORD  masked  the keystore password
-#   ANDROID_KEY_ALIAS          plain   opengym
+#   ANDROID_KEY_ALIAS          plain   fittrix
 # KEEP THAT KEYSTORE: updates must be signed with the same key or Android refuses to
 # install them over an existing copy.
 build:apk:
@@ -543,9 +543,9 @@ build:apk:
           --ks-pass "env:ANDROID_KEYSTORE_PASSWORD" \
           --ks-key-alias "$ANDROID_KEY_ALIAS" \
           --key-pass "env:ANDROID_KEYSTORE_PASSWORD" \
-          --out "$CI_PROJECT_DIR/openGym-$VER.apk" aligned.apk
+          --out "$CI_PROJECT_DIR/Fittrix-$VER.apk" aligned.apk
         rm -f "$CI_PROJECT_DIR/.ks.jks"
-        "$BT/apksigner" verify --print-certs "$CI_PROJECT_DIR/openGym-$VER.apk"
+        "$BT/apksigner" verify --print-certs "$CI_PROJECT_DIR/Fittrix-$VER.apk"
       elif [ -n "${CI_COMMIT_TAG:-}" ]; then
         # A release must never quietly ship an APK nobody can install. If the key is missing
         # on a tag, something is wrong with the protected variables — say so and stop.
@@ -554,7 +554,7 @@ build:apk:
         exit 1
       else
         echo "No signing key on this ref — producing an UNSIGNED apk (cannot be installed)."
-        "$BT/zipalign" -f -p 4 "$UNSIGNED" "$CI_PROJECT_DIR/openGym-$VER-unsigned.apk"
+        "$BT/zipalign" -f -p 4 "$UNSIGNED" "$CI_PROJECT_DIR/Fittrix-$VER-unsigned.apk"
       fi
       echo "APK_VERSION=$VER" >> "$CI_PROJECT_DIR/apk.env"
     # On a release tag the APK also goes into the generic package registry, which is
@@ -566,22 +566,22 @@ build:apk:
       # Sideloading means nobody's app store checked this file for you, so publish the
       # digest next to it rather than leaving people to trust the download. Written for
       # every build (branch artifacts too), uploaded only from a release tag.
-      for apk in openGym-*.apk; do sha256sum "$apk" > "$apk.sha256"; cat "$apk.sha256"; done
-      if [ -n "${CI_COMMIT_TAG:-}" ] && [ -f "openGym-$APK_VERSION.apk" ]; then
-        echo "APK_SHA256=$(cut -d' ' -f1 "openGym-$APK_VERSION.apk.sha256")" >> apk.env
-        for f in "openGym-$APK_VERSION.apk" "openGym-$APK_VERSION.apk.sha256"; do
+      for apk in Fittrix-*.apk; do sha256sum "$apk" > "$apk.sha256"; cat "$apk.sha256"; done
+      if [ -n "${CI_COMMIT_TAG:-}" ] && [ -f "Fittrix-$APK_VERSION.apk" ]; then
+        echo "APK_SHA256=$(cut -d' ' -f1 "Fittrix-$APK_VERSION.apk.sha256")" >> apk.env
+        for f in "Fittrix-$APK_VERSION.apk" "Fittrix-$APK_VERSION.apk.sha256"; do
           curl --fail --silent --show-error \
             --header "JOB-TOKEN: $CI_JOB_TOKEN" \
             --upload-file "$f" \
-            "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/opengym-android/$APK_VERSION/$f"
+            "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/fittrix-android/$APK_VERSION/$f"
           echo "uploaded $f to the generic package registry"
         done
       fi
   artifacts:
-    name: "openGym-apk-$CI_COMMIT_REF_SLUG"
+    name: "Fittrix-apk-$CI_COMMIT_REF_SLUG"
     paths:
-      - "openGym-*.apk"
-      - "openGym-*.apk.sha256"
+      - "Fittrix-*.apk"
+      - "Fittrix-*.apk.sha256"
     reports:
       dotenv: apk.env
     expire_in: 30 days
@@ -629,7 +629,7 @@ verify:stack:
       docker compose -f docker-compose.yml -f ci-images.override.yml config --quiet
       # --no-deps skips the `media` service (a 140 MB clone the smoke test does not need).
       docker compose -f docker-compose.yml -f ci-images.override.yml up -d --no-deps --no-build api web
-      NET="$(docker network ls --filter name=opengym --format '{{.Name}}' | head -1)"
+      NET="$(docker network ls --filter name=fittrix --format '{{.Name}}' | head -1)"
       curl() { docker run --rm --network "$NET" curlimages/curl:8.12.1 "$@"; }
       for i in $(seq 1 30); do
         curl -fsS http://web/api/health >/dev/null 2>&1 && break
@@ -683,13 +683,13 @@ verify:scan:
       for i in api web; do
         REF="$CI_REGISTRY_IMAGE/$i:$IMAGE_TAG"
         echo "=================== $REF"
-        trivy image --format cyclonedx --output "opengym-$i-$IMAGE_TAG.cdx.json" "$REF"
+        trivy image --format cyclonedx --output "fittrix-$i-$IMAGE_TAG.cdx.json" "$REF"
         trivy image --scanners vuln --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 "$REF" || rc=1
       done
       if [ -n "${CI_COMMIT_TAG:-}" ]; then
-        for f in opengym-*.cdx.json; do
+        for f in fittrix-*.cdx.json; do
           curl --fail --silent --show-error --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file "$f" \
-            "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/opengym-sbom/$IMAGE_TAG/$f"
+            "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/fittrix-sbom/$IMAGE_TAG/$f"
           echo "uploaded $f to the generic package registry"
         done
       fi
@@ -698,7 +698,7 @@ verify:scan:
   artifacts:
     when: always
     paths:
-      - "opengym-*.cdx.json"
+      - "fittrix-*.cdx.json"
     expire_in: 90 days
   allow_failure: true
   rules:
@@ -709,9 +709,9 @@ verify:scan:
 
 # ---------------------------------------------------------------------------- pages
 
-# The browser-only demo: https://opengym-bc111a.gitlab.io/
+# The browser-only demo: https://jogdandasmit.gitlab.io/Fittrix/
 # (that opaque host is GitLab's "unique domain" for Pages, on by default; the tidier
-# https://duartesantos8.gitlab.io/opengym/ 308s to it. Settings → Pages turns it off.)
+# https://jogdandasmit.gitlab.io/Fittrix/ 308s to it. Settings → Pages turns it off.)
 # Pages serves static files only, so this build has no backend — VITE_DEMO=1 makes the
 # app boot straight into guest mode with a seeded example history (frontend/src/lib/demo.js).
 # Vite's base is './', so the bundle drops into a subdirectory unchanged.
@@ -795,29 +795,29 @@ release:
       | \`$CI_REGISTRY_IMAGE/api\` | \`$SEMVER\` \`$MINOR\` \`latest\` | \`$IMAGE_DIGEST_API\` |
       | \`$CI_REGISTRY_IMAGE/web\` | \`$SEMVER\` \`$MINOR\` \`latest\` | \`$IMAGE_DIGEST_WEB\` |
 
-      Both images are linux/amd64 + linux/arm64. Android: \`openGym-$APK_VERSION.apk\`, SHA-256 \`$APK_SHA256\` — check it with \`sha256sum -c openGym-$APK_VERSION.apk.sha256\`. Built from $CI_COMMIT_SHA.
+      Both images are linux/amd64 + linux/arm64. Android: \`Fittrix-$APK_VERSION.apk\`, SHA-256 \`$APK_SHA256\` — check it with \`sha256sum -c Fittrix-$APK_VERSION.apk.sha256\`. Built from $CI_COMMIT_SHA.
       EOF
       cat release-notes.md
   release:
     tag_name: $CI_COMMIT_TAG
-    name: "openGym $CI_COMMIT_TAG"
+    name: "Fittrix $CI_COMMIT_TAG"
     description: release-notes.md
     assets:
       links:
-        - name: "openGym-$APK_VERSION.apk (Android, sideload)"
-          url: "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/opengym-android/$APK_VERSION/openGym-$APK_VERSION.apk"
+        - name: "Fittrix-$APK_VERSION.apk (Android, sideload)"
+          url: "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/fittrix-android/$APK_VERSION/Fittrix-$APK_VERSION.apk"
           link_type: package
-        - name: "openGym-$APK_VERSION.apk.sha256 (checksum)"
-          url: "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/opengym-android/$APK_VERSION/openGym-$APK_VERSION.apk.sha256"
+        - name: "Fittrix-$APK_VERSION.apk.sha256 (checksum)"
+          url: "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/fittrix-android/$APK_VERSION/Fittrix-$APK_VERSION.apk.sha256"
           link_type: other
         - name: "Container images (api + web)"
           url: "$CI_PROJECT_URL/container_registry"
           link_type: image
         - name: "SBOM api image (CycloneDX)"
-          url: "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/opengym-sbom/$IMAGE_TAG/opengym-api-$IMAGE_TAG.cdx.json"
+          url: "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/fittrix-sbom/$IMAGE_TAG/fittrix-api-$IMAGE_TAG.cdx.json"
           link_type: other
         - name: "SBOM web image (CycloneDX)"
-          url: "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/opengym-sbom/$IMAGE_TAG/opengym-web-$IMAGE_TAG.cdx.json"
+          url: "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/fittrix-sbom/$IMAGE_TAG/fittrix-web-$IMAGE_TAG.cdx.json"
           link_type: other
 
 # ---------------------------------------------------------------------- maintenance
