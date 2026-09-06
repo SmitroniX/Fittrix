@@ -41,6 +41,10 @@ updates:
       # dependency bump. Drop this ignore once the build host is on Node 22 and you want it.
       - dependency-name: '@capacitor/*'
         update-types: ['version-update:semver-major']
+      - dependency-name: '@capacitor-mlkit/*'
+        update-types: ['version-update:semver-major']
+      - dependency-name: '@aparajita/capacitor-secure-storage'
+        update-types: ['version-update:semver-major']
 
   # Backend — api/package.json (@simplewebauthn/server, web-push)
   - package-ecosystem: npm
