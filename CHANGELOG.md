@@ -1,5 +1,22 @@
 # Changelog
 
+## v1.3.6 — 2026-09-06
+
+Brand artwork update, new official logo, Discord community integration, and pipeline improvements.
+
+- 🎨 **New SmiTriX logo & brand assets**:
+  - Replaced legacy dumbbell artwork with the new official SmiTriX logo (athletic silhouette wrapped in a sweeping brush "S").
+  - Generated full asset suite: PWA maskable icons (180×180 & 512×512), Android adaptive icon layers & legacy mipmap drawables, iOS AppIcon (1024×1024), and splash launch screens.
+  - Redesigned OpenGraph and project showcase banners (`assets/banner.png`, `website/img/banner.png`, `assets/banner.svg`).
+- 💬 **Discord community server**:
+  - Updated official Discord invite link to https://discord.gg/ZFQV5dza9P across website, documentation, and repository.
+  - Live member count badge integration with Discord API.
+- 👤 **Maintainer and repository author updates**:
+  - Updated author and copyright notices to Asmit Jogdand (SmitroniX).
+  - Renamed remaining openGym references to SmiTriX across CI workflows, issue templates, and Docker publish configs.
+- ⚙️ **CI/CD & build hardening**:
+  - Hardened website and mobile build pipelines with `--legacy-peer-deps`.
+
 ## v1.3.5 — 2026-09-06
 
 First release under the new project name **SmiTriX**.

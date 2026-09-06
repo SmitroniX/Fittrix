@@ -404,7 +404,7 @@ function panel({ opener, panelEl, flag, closeBtn }) {
       btn.href = apk.browser_download_url
       const meta = btn.nextElementSibling
       if (meta && meta.classList.contains('meta')) {
-        const ver = rel.tag_name || 'v1.3.5'
+        const ver = rel.tag_name || 'v1.3.6'
         const sizeMb = (apk.size / (1024 * 1024)).toFixed(1)
         meta.textContent = `${ver} · ${sizeMb} MB · Android 6.0+ · signed APK. Your browser will ask before installing; that is normal outside the Play Store.`
       }
