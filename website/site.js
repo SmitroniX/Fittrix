@@ -378,36 +378,25 @@ function panel({ opener, panelEl, flag, closeBtn }) {
 })()
 
 /* --------------------------------------------------- latest release & download
-   Resolves the latest release from GitHub API and points the download button
-   directly to the newest signed APK asset while updating the version and size
-   metadata in the UI. Falls back cleanly to static markup if offline or rate-limited. */
+   Ensures the download button points to the GitHub latest release redirect URL
+   and updates the version and size metadata dynamically from GitHub API. */
 ;(async () => {
   const btn = document.querySelector('#download a.btn[download]')
   if (!btn) return
-  const GH_RELEASES = 'https://api.github.com/repos/SmitroniX/SmiTriX/releases/latest'
+  // Always ensure the download button links directly to GitHub's latest release redirect
+  btn.href = 'https://github.com/SmitroniX/SmiTriX/releases/latest/download/SmiTriX.apk'
   try {
-    let rel = null
-    const cached = sessionStorage.getItem('smitrix_latest_release')
-    if (cached) {
-      rel = JSON.parse(cached)
-    } else {
-      const res = await fetch(GH_RELEASES)
-      if (res.ok) {
-        rel = await res.json()
-        sessionStorage.setItem('smitrix_latest_release', JSON.stringify(rel))
-      }
-    }
-    if (!rel) return
+    sessionStorage.removeItem('smitrix_latest_release')
+    const res = await fetch('https://api.github.com/repos/SmitroniX/SmiTriX/releases/latest', { cache: 'no-cache' })
+    if (!res.ok) return
+    const rel = await res.json()
     const apk = rel.assets?.find(a => a.name === 'SmiTriX.apk') ||
                 rel.assets?.find(a => /\.apk$/i.test(a.name) && !/unsigned/i.test(a.name))
-    if (apk && apk.browser_download_url) {
-      btn.href = apk.browser_download_url
-      const meta = btn.nextElementSibling
-      if (meta && meta.classList.contains('meta')) {
-        const ver = rel.tag_name || 'v1.3.6'
-        const sizeMb = (apk.size / (1024 * 1024)).toFixed(1)
-        meta.textContent = `${ver} · ${sizeMb} MB · Android 6.0+ · signed APK. Your browser will ask before installing; that is normal outside the Play Store.`
-      }
+    const meta = btn.nextElementSibling
+    if (meta && meta.classList.contains('meta')) {
+      const ver = rel.tag_name || 'v1.3.6'
+      const sizeMb = apk && apk.size ? (apk.size / (1024 * 1024)).toFixed(1) : '27.7'
+      meta.textContent = `${ver} · ${sizeMb} MB · Android 6.0+ · signed APK. Your browser will ask before installing; that is normal outside the Play Store.`
     }
-  } catch (e) { /* fail soft: keep static href and meta */ }
+  } catch (e) { /* fail soft: keep latest download link and static meta */ }
 })()

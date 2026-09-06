@@ -610,7 +610,7 @@ ${schemaCards}
   </div>
 </div></footer>
 
-<script src="site.js?v=18" defer></script>
+<script src="site.js?v=19" defer></script>
 <script>${js}</script>
 </body>
 </html>
