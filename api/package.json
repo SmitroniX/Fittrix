@@ -2,6 +2,7 @@
   "name": "smitrix-api",
   "version": "1.3.5",
   "private": true,
+  "author": "Asmit Jogdand (SmitroniX) <https://github.com/SmitroniX>",
   "type": "module",
   "main": "server.js",
   "license": "AGPL-3.0-or-later",

@@ -18,7 +18,7 @@ ARG VERSION=dev
 ARG VCS_REF=dev
 ARG BUILD_DATE=unknown
 
-LABEL maintainer="jogdandasmit https://gitlab.com/jogdandasmit" \
+LABEL maintainer="Asmit Jogdand (SmitroniX) https://github.com/SmitroniX" \
     org.opencontainers.image.title="smitrix-api" \
     org.opencontainers.image.description="Backend for Self-hosted gym & body-weight tracker — plan routines, log workouts (supersets & cardio too), track your weight and progress, passkey login. Your data, your server." \
     org.opencontainers.image.source="https://github.com/SmitroniX/SmiTriX" \

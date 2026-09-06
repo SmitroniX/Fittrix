@@ -236,7 +236,7 @@ export const SHARED_ACCOUNT_REFUSAL =
  * returns a token to a caller that only asked whether a job may run: `auth` is the decrypted
  * payload and is only ever handed to jobEnv().
  *
- * Refusals are terminal by design (Duarte, PR-1 constraints): no job is enqueued, rather than a
+ * Refusals are terminal by design (PR-1 constraints): no job is enqueued, rather than a
  * job that runs on somebody else's subscription behind a dismissible warning.
  */
 export function credentialFor(uid) {

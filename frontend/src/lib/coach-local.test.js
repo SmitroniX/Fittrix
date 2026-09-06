@@ -115,13 +115,13 @@ describe('the Coach on a phone with its own key', () => {
   })
 
   it('mints one 16-character pseudonym and keeps it; the payload carries it and never a name', async () => {
-    await local.localReview({ ...state(), name: 'Duarte' })
+    await local.localReview({ ...state(), name: 'Asmit' })
     await settle()
     const first = (await loadCoachDevice()).handle
     expect(first).toHaveLength(16)
     const payload = wire.calls[0].body.messages[1].content
     expect(payload).toContain(`"profile":"${first}"`)
-    expect(payload).not.toContain('Duarte')
+    expect(payload).not.toContain('Asmit')
     local._resetLocal(); await saveCoachDevice({ pending: null })
     await local.localReview(state()); await settle()
     expect((await loadCoachDevice()).handle).toBe(first)

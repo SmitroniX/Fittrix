@@ -59,22 +59,22 @@ describe('auditReason', () => {
 
 describe('auditLine', () => {
   it('names the person who did it', () => {
-    expect(auditLine({ ev: 'auth.login.ok', ok: true, uid: 'u1', name: 'Duarte' }))
-      .toEqual({ title: 'Signed in', sub: 'Duarte' })
+    expect(auditLine({ ev: 'auth.login.ok', ok: true, uid: 'u1', name: 'Asmit' }))
+      .toEqual({ title: 'Signed in', sub: 'Asmit' })
   })
 
   it('shows both sides of an admin action', () => {
-    const l = auditLine({ ev: 'admin.user.disable', ok: true, uid: 'a', name: 'Duarte', tgt: 'b', tname: 'Ana' })
+    const l = auditLine({ ev: 'admin.user.disable', ok: true, uid: 'a', name: 'Asmit', tgt: 'b', tname: 'Ana' })
     expect(l.title).toBe('Disabled an account')
-    expect(l.sub).toBe('Duarte · → Ana')
+    expect(l.sub).toBe('Asmit · → Ana')
   })
 
   it('translates the reason on a failure but not the invite code on a success', () => {
     expect(auditLine({ ev: 'auth.login.fail', ok: false, msg: 'unknown-credential' }).sub)
       .toBe('unknown caller · unknown passkey')
     // admin.invite.* put the actual code in msg — that must not be run through auditReason.
-    expect(auditLine({ ev: 'admin.invite.create', ok: true, name: 'Duarte', msg: 'A1B2C3D4' }).sub)
-      .toBe('Duarte · A1B2C3D4')
+    expect(auditLine({ ev: 'admin.invite.create', ok: true, name: 'Asmit', msg: 'A1B2C3D4' }).sub)
+      .toBe('Asmit · A1B2C3D4')
   })
 
   it('says "unknown caller" only when a failure carries no identity', () => {
@@ -89,8 +89,8 @@ describe('auditLine', () => {
   })
 
   it('appends the network when the operator opted into IPs', () => {
-    expect(auditLine({ ev: 'auth.login.ok', ok: true, name: 'Duarte', ip: '203.0.113.0/24' }).sub)
-      .toBe('Duarte · 203.0.113.0/24')
+    expect(auditLine({ ev: 'auth.login.ok', ok: true, name: 'Asmit', ip: '203.0.113.0/24' }).sub)
+      .toBe('Asmit · 203.0.113.0/24')
   })
 
   it('renders nothing rather than throwing on a missing record', () => {

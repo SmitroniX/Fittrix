@@ -87,7 +87,7 @@ accounts, no store rules, no yearly fees between you and an open-source app.
 
 The official signed APK is in three places, all the same file:
 
-- **[smitrix.duarte-santos.ch](https://smitrix.duarte-santos.ch)** — the download page.
+- **[smitronix.github.io/SmiTriX](https://smitronix.github.io/SmiTriX/)** — the download page.
 - **[GitLab's package registry](https://github.com/SmitroniX/SmiTriX/releases)** — every
   build under `smitrix-android/<version>/`, with a `.sha256` beside it. Direct link, no login:
   `https://gitlab.com/api/v4/projects/85678327/packages/generic/smitrix-android/<version>/SmiTriX-<version>.apk`

@@ -1,6 +1,7 @@
 {
   "name": "smitrix",
   "private": true,
+  "author": "Asmit Jogdand (SmitroniX) <https://github.com/SmitroniX>",
   "scripts": {
     "build:website": "bash scripts/build-website.sh",
     "build:app": "bash scripts/build-app.sh"

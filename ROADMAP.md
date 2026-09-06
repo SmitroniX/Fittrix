@@ -10,7 +10,7 @@ minor bump is reserved for something that breaks compatibility.
 
 - Issues: https://github.com/SmitroniX/SmiTriX/issues
 - Milestones: https://github.com/SmitroniX/SmiTriX/milestones
-- "In review" means: on a branch and deployed to gym-test.duarte-santos.ch, waiting for a real session.
+- "In review" means: on a branch and deployed to a staging environment, waiting for a real session.
 
 ---
 
@@ -123,5 +123,5 @@ it goes in one MR at a time, each rebased and tested on gym-test before the next
 
 An issue goes planned → in progress → in review → closed on the board. Contributor merge requests
 from returning contributors get their pipeline started here automatically; a first MR is started
-by hand after a look at the diff. Anything in review is on gym-test.duarte-santos.ch. Releases
+by hand after a look at the diff. Anything in review is verified in a staging environment. Releases
 bundle whatever has passed that test, with a changelog section per contributor.

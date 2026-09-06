@@ -1,6 +1,6 @@
 # Third-party notices
 
-SmiTriX — Copyright (C) 2026 Duarte Santos.
+SmiTriX — Copyright (C) 2026 Asmit Jogdand (SmitroniX).
 SmiTriX's own code is licensed under the **GNU AGPL v3.0** (see [LICENSE](LICENSE)).
 
 ## App store exception

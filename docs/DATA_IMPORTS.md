@@ -8,7 +8,7 @@ The app supports exporting and an export always contain *every* current routine.
 If you don't want to share every plan that you have currently created, you can either:
 - edit the exported json with a text editor  
   or (if you don't feel like editing json files):
-- open the [Demo](https://smitrix.duarte-santos.ch/demo/#/home)
+- open the [Demo](https://smitronix.github.io/SmiTriX/demo/#/home)
     - import your plans
     - make changes 
     - export a new json file for sharing
