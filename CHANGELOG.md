@@ -1,5 +1,22 @@
 # Changelog
 
+## v1.3.7 — 2026-09-06
+
+Official SmiTriX logo upscale, enhanced in-app release update flow, and CI/CD hardening.
+
+- 💎 **High-resolution logo & transparent branding**:
+  - Replaced the initial raster logo with the pristine, high-resolution upscaled SmiTriX emblem.
+  - Transparent background and refined rounded corners applied across all platforms.
+  - Updated Android adaptive icons (foreground/background/round), legacy mipmaps, launch splash screens, and web PWA app icons (`icon-180.png`, `icon-512.png`, `icon-maskable.png`).
+- 🚀 **In-app update notifications & installer flow**:
+  - Automatic boot release check against GitHub and GitLab releases.
+  - New release prompt dialog with **"Update now"** and **"Remind me later"** options.
+  - "Update now": Streams APK download with real-time progress bar and verifies SHA-256 checksum before triggering native Android installer, or opens release on web/iOS.
+  - "Remind me later": Dismisses prompt and silences notifications for 24 hours while immediately allowing newer version bumps to prompt.
+- ⚙️ **CI/CD pipeline stabilization**:
+  - Automated dependency installation for API tests in GitHub Actions.
+  - All CI workflows passing 100% green across Android APK release builds, containers, and test suites.
+
 ## v1.3.6 — 2026-09-06
 
 Brand artwork update, new official logo, Discord community integration, and pipeline improvements.
