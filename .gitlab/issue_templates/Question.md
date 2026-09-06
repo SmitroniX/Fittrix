@@ -11,7 +11,7 @@
 
 ### Setup
 
-- openGym version or commit:
+- SmiTriX version or commit:
 - How you run it (docker compose / dev server / APK):
 - If it is about login or passkeys — `RP_ID`, `ORIGIN`, and what sits in front of the app:
 

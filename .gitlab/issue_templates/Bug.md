@@ -18,20 +18,20 @@
 
 *Error messages, console output or screenshots if you have them.*
 
-### How are you running openGym?
+### How are you running SmiTriX?
 
 *Pick one: self-hosted (docker compose) · frontend dev server (`npm run dev`) · Android APK ·
 other / not sure*
 
 ### Version & environment
 
-- openGym version or commit:
+- SmiTriX version or commit:
 - Browser & OS: *e.g. Safari 17 on iOS 18, Chrome 126 on Android*
 
 ### Is this about login / passkeys?
 
 Most login issues are an `RP_ID`/`ORIGIN` mismatch — check your `.env` against the domain you
-reach openGym on before reporting. See the [self-hosting guide](../../docs/SELF_HOSTING.md).
+reach SmiTriX on before reporting. See the [self-hosting guide](../../docs/SELF_HOSTING.md).
 
 - [ ] Yes, and I have already checked `RP_ID`/`ORIGIN`
 - `RP_ID` =

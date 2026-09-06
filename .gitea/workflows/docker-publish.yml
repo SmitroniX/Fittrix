@@ -1,6 +1,6 @@
 # Publishes the two images to the gitea.com container registry, replacing GHCR.
 #
-# Images land at gitea.com/duartesantos/opengym-{api,web} and are what
+# Images land at gitea.com/${{ steps.repo.outputs.owner }}/smitrix-{api,web} and are what
 # `docker compose pull` fetches.
 #
 # As on GitHub, a *published release* is the trigger, never a bare tag push: the
@@ -64,7 +64,7 @@ jobs:
       - uses: docker/metadata-action@v5
         id: meta
         with:
-          images: gitea.com/${{ steps.repo.outputs.owner }}/opengym-${{ matrix.image }}
+          images: gitea.com/${{ steps.repo.outputs.owner }}/smitrix-${{ matrix.image }}
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
             type=semver,pattern={{version}}

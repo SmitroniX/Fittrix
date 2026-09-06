@@ -4,11 +4,11 @@
 blank_issues_enabled: false
 contact_links:
   - name: Self-hosting guide
-    url: https://gitea.com/DuarteSantos/openGym/src/branch/main/docs/SELF_HOSTING.md
+    url: https://github.com/SmitroniX/SmiTriX/blob/main/docs/SELF_HOSTING.md
     about: Passkey login failing, reverse proxies, HTTPS, Docker — most login trouble is an RP_ID/ORIGIN mismatch and is answered here.
   - name: Contributing guide
-    url: https://gitea.com/DuarteSantos/openGym/src/branch/main/CONTRIBUTING.md
+    url: https://github.com/SmitroniX/SmiTriX/blob/main/CONTRIBUTING.md
     about: Project layout, dev setup and guidelines before you open a PR.
   - name: Changelog
-    url: https://gitea.com/DuarteSantos/openGym/src/branch/main/CHANGELOG.md
+    url: https://github.com/SmitroniX/SmiTriX/blob/main/CHANGELOG.md
     about: What changed in each release, newest first.
