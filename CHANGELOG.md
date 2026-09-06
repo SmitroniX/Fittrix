@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.3.5 — 2026-09-06
+
+First release under the new project name **SmiTriX**.
+
+- 🏷️ **Project rebranded to SmiTriX**:
+  - Android package migrated to `com.smitrix.app`, signed APK asset is now `SmiTriX.apk`.
+  - Full backward compatibility maintained for existing workout plans, data imports, and state persistence (`smitrix-state.json` with fallback to `fittrix-state.json`).
+  - Container images renamed to `smitrix-web`, `smitrix-api`, and `smitrix-mcp`.
+  - Website updated with dynamic release download resolution and GitHub Pages deployment.
+
 ## v1.3.4 — 2026-09-05
 
 Two things noticed on the phone right after v1.3.3. Web bundle and APK; the API only carries the

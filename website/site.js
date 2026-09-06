@@ -105,13 +105,16 @@ function panel({ opener, panelEl, flag, closeBtn }) {
    pages ship the byte-identical header the whole site is built around. Only links
    to a page (not to a section of one) can be "the page you are on". */
 ;(() => {
-  const here = location.pathname.replace(/\/index\.html$/, '/')
+  const norm = p => (p || '').split('?')[0].split('#')[0].replace(/\/index\.html$/, '').replace(/\/$/, '')
+  const here = norm(location.pathname)
   document.querySelectorAll('.nav-quick .ql, .navsheet .nl').forEach(a => {
     const href = a.getAttribute('href') || ''
-    if (href.includes('#') || /^https?:/.test(href)) return
-    if (new URL(a.href).pathname.replace(/\/index\.html$/, '/') === here) {
-      a.setAttribute('aria-current', 'page')
-    }
+    if (href.startsWith('#') || /^https?:/.test(href)) return
+    try {
+      if (norm(new URL(a.href, location.origin).pathname) === here) {
+        a.setAttribute('aria-current', 'page')
+      }
+    } catch (e) {}
   })
 })()
 
@@ -372,4 +375,39 @@ function panel({ opener, panelEl, flag, closeBtn }) {
   const last = document.querySelector('.hero-stage') || document.querySelector('.hero .actions')
   if (last) last.addEventListener('animationend', done, { once: true })
   setTimeout(done, 2400)   // if the animation never fires, do not leave the hero hidden
+})()
+
+/* --------------------------------------------------- latest release & download
+   Resolves the latest release from GitHub API and points the download button
+   directly to the newest signed APK asset while updating the version and size
+   metadata in the UI. Falls back cleanly to static markup if offline or rate-limited. */
+;(async () => {
+  const btn = document.querySelector('#download a.btn[download]')
+  if (!btn) return
+  const GH_RELEASES = 'https://api.github.com/repos/SmitroniX/SmiTriX/releases/latest'
+  try {
+    let rel = null
+    const cached = sessionStorage.getItem('smitrix_latest_release')
+    if (cached) {
+      rel = JSON.parse(cached)
+    } else {
+      const res = await fetch(GH_RELEASES)
+      if (res.ok) {
+        rel = await res.json()
+        sessionStorage.setItem('smitrix_latest_release', JSON.stringify(rel))
+      }
+    }
+    if (!rel) return
+    const apk = rel.assets?.find(a => a.name === 'SmiTriX.apk') ||
+                rel.assets?.find(a => /\.apk$/i.test(a.name) && !/unsigned/i.test(a.name))
+    if (apk && apk.browser_download_url) {
+      btn.href = apk.browser_download_url
+      const meta = btn.nextElementSibling
+      if (meta && meta.classList.contains('meta')) {
+        const ver = rel.tag_name || 'v1.3.5'
+        const sizeMb = (apk.size / (1024 * 1024)).toFixed(1)
+        meta.textContent = `${ver} · ${sizeMb} MB · Android 6.0+ · signed APK. Your browser will ask before installing; that is normal outside the Play Store.`
+      }
+    }
+  } catch (e) { /* fail soft: keep static href and meta */ }
 })()
