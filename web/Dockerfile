@@ -17,7 +17,7 @@ COPY frontend/package.json frontend/package-lock.json* ./
 # --ignore-scripts: the web image only needs `vite build`; the one heavy postinstall in this tree
 # (@capacitor/assets -> sharp, a libvips download from GitHub) is for drawing app icons and has
 # timed out on the shared runners — a lockfile-ignoring `npm install` fallback is no answer to that.
-RUN npm ci --ignore-scripts
+RUN npm ci --ignore-scripts --legacy-peer-deps
 COPY api/coach/core/ /app/api/coach/core/
 COPY frontend/ ./
 RUN npm run build

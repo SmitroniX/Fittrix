@@ -159,7 +159,7 @@ test:frontend:
     # --ignore-scripts: nothing here needs a postinstall, and the one package that has a
     # heavy one (@capacitor/assets → sharp, a 10 MB libvips download from GitHub) is only
     # used to draw app icons. That download timing out is what turned a release red.
-    - npm ci --cache .npm --prefer-offline --ignore-scripts
+    - npm ci --cache .npm --prefer-offline --ignore-scripts --legacy-peer-deps
     # JUnit → the MR widget lists exactly which tests failed; cobertura → coverage on the
     # diff; text-summary → the number the coverage badge shows.
     - npx vitest run
@@ -526,7 +526,7 @@ build:apk:
     - |
       set -eu
       cd frontend
-      npm ci
+      npm ci --legacy-peer-deps
       # VITE_MOBILE build + `cap sync` into android/. The mobile flavor talks to no
       # backend at all: no sign-in, no sync, media straight from the CDN.
       npm run build:mobile
@@ -729,7 +729,7 @@ pages:
       - frontend/.npm
   script:
     - cd frontend
-    - npm ci --cache .npm --prefer-offline --ignore-scripts
+    - npm ci --cache .npm --prefer-offline --ignore-scripts --legacy-peer-deps
     - VITE_IMG_BASE="$DATASET/images/" VITE_GIF_BASE="$DATASET/videos/" npm run build
     - cd ..
     - rm -rf public && mv frontend/dist public
