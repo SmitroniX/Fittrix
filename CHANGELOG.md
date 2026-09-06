@@ -669,7 +669,7 @@ animations are © Gym visual, not CC, which matters if you redistribute them.
   forms, tests and the image publish run as Gitea Actions. **If you self-host, re-pull:** the old
   `ghcr.io` images are gone and will not update again.
 - Gitea has no Discussions, so questions and ideas are labelled issues — or the Discord, which
-  is where most of it happens now: <https://discord.gg/e62jY6fwVb>.
+  is where most of it happens now: <https://discord.gg/ZFQV5dza9P>.
 - Old issue and PR numbers in the entries below stay as plain text. They point at a dead repo and
   do not match the numbering here.
 

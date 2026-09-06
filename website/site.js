@@ -9,7 +9,7 @@ const GL_PROJECT = 'https://gitlab.com/api/v4/projects/jogdandasmit%2FSmiTriX'
 // ?with_counts=1 — no bot token, no widget to enable, and the API reflects the caller's
 // Origin, so the browser is allowed to read it. The code is the permanent invite in the
 // nav; if that invite is ever revoked this returns 404 and the count simply stays blank.
-const DC_INVITE = 'https://discord.com/api/v10/invites/e62jY6fwVb?with_counts=1'
+const DC_INVITE = 'https://discord.com/api/v10/invites/ZFQV5dza9P?with_counts=1'
 
 /* ------------------------------------------------------- one panel controller
    The navigation sheet and the contents drawer are the same object with different

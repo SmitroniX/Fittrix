@@ -22,7 +22,7 @@ No subscription, no ads, full privacy.
 [![Release](https://img.shields.io/github/v/release/SmitroniX/SmiTriX?style=flat-square)](https://github.com/SmitroniX/SmiTriX/releases)
 [![Stars](https://img.shields.io/github/stars/SmitroniX/SmiTriX?style=flat-square)](https://github.com/SmitroniX/SmiTriX/stargazers)
 [![Issues](https://img.shields.io/github/issues/SmitroniX/SmiTriX?style=flat-square)](https://github.com/SmitroniX/SmiTriX/issues)
-[![Discord](https://img.shields.io/badge/Discord-join-5865F2?style=flat-square&logo=discord&logoColor=white)](https://discord.gg/e62jY6fwVb)
+[![Discord](https://img.shields.io/badge/Discord-join-5865F2?style=flat-square&logo=discord&logoColor=white)](https://discord.gg/ZFQV5dza9P)
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-support-FFDD00?style=flat-square&logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/asmit_jogdand)
 
 </div>
@@ -240,7 +240,7 @@ in the Docker build.
 
 ## Community
 
-- **[Discord](https://discord.gg/e62jY6fwVb)** — release announcements, self-hosting help and
+- **[Discord](https://discord.gg/ZFQV5dza9P)** — release announcements, self-hosting help and
   the back-and-forth that would be a slow issue thread. Quickest way to get an answer.
 - **[Issues](https://github.com/SmitroniX/SmiTriX/issues)** — bugs, questions, self-hosting
   help and ideas. There are no Discussions here, so it all lives in one tracker: label a question

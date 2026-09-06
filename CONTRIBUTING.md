@@ -69,7 +69,7 @@ here before, otherwise a maintainer presses "Run pipeline" after a first look at
 
 | You have | Goes to |
 | --- | --- |
-| A quick question, or you'd rather just chat | [The Discord](https://discord.gg/e62jY6fwVb) |
+| A quick question, or you'd rather just chat | [The Discord](https://discord.gg/ZFQV5dza9P) |
 | A question, or self-hosting that won't behave | [An issue labelled `question`](https://github.com/SmitroniX/SmiTriX/issues) |
 | An idea you're not sure about yet | [An issue labelled `idea`](https://github.com/SmitroniX/SmiTriX/issues) |
 | A reproducible bug | [Issues](https://github.com/SmitroniX/SmiTriX/issues) |
