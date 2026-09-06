@@ -1,14 +1,15 @@
 <div align="center">
 
-# ⚡ SmiTriX
+<img src="assets/banner.png" alt="SmiTriX — Self-hosted gym & body-weight tracker" width="800">
+
+<br>
+<br>
 
 **A modern, private gym & fitness app & web platform you actually own.**
 
 Plan your week, run guided workouts, track every set and your body weight over time —
 on your phone, synced across devices, behind your own passkey login.
 No subscription, no ads, full privacy.
-
-</div>
 
 <br>
 
