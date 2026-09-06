@@ -55,7 +55,9 @@ export default function Login() {
     catch (e) { if (e.name !== 'NotAllowedError' && e.name !== 'AbortError') useUI.getState().toast(e.message || t('Sign-in failed')) }
   }
   const head = <>
-    <div style={{ fontSize: 54, display: 'flex', justifyContent: 'center', color: 'var(--acc)' }}><Icon name="dumbbell" /></div>
+    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 12 }}>
+      <img src="icon-180.png" width="80" height="80" style={{ borderRadius: 18, boxShadow: '0 8px 24px rgba(0,0,0,0.45)' }} alt="SmiTriX" />
+    </div>
     <h1 style={{ fontSize: 34, fontWeight: 700, letterSpacing: '-.028em', margin: '10px 0 4px' }}>SmiTriX</h1>
   </>
   const wrap = { display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: '78vh', textAlign: 'center' }
