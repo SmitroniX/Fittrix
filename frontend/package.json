@@ -14,8 +14,8 @@
   },
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@aparajita/capacitor-secure-storage": "^7.1.6",
-    "@capacitor-mlkit/barcode-scanning": "^7.5.0",
+    "@aparajita/capacitor-secure-storage": "^8.0.0",
+    "@capacitor-mlkit/barcode-scanning": "^8.1.1",
     "@capacitor/app": "^7.1.2",
     "@capacitor/core": "^7.6.9",
     "@capacitor/filesystem": "^7.1.8",
