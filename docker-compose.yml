@@ -1,10 +1,10 @@
-name: fittrix
+name: smitrix
 
 services:
   # One-time: download the exercise images + GIFs into ./media (skipped if already there).
   # ~140 MB, from github.com/hasaneyldrm/exercises-dataset. That dataset is MIT for the
   # metadata and instruction text, but the images and GIFs are © Gym visual
-  # (https://gymvisual.com/) and are used under the dataset's terms — Fittrix neither
+  # (https://gymvisual.com/) and are used under the dataset's terms — SmiTriX neither
   # redistributes nor relicenses them. See NOTICE.md.
   media:
     image: alpine/git
@@ -19,8 +19,8 @@ services:
           echo "  Source:  github.com/hasaneyldrm/exercises-dataset"
           echo "  Metadata and instruction text: MIT."
           echo "  Images and animations: © Gym visual — https://gymvisual.com/"
-          echo "  They are used under that dataset's terms, not Fittrix's AGPL, and are"
-          echo "  downloaded from upstream — Fittrix does not redistribute them."
+          echo "  They are used under that dataset's terms, not SmiTriX's AGPL, and are"
+          echo "  downloaded from upstream — SmiTriX does not redistribute them."
           echo "  Terms: https://gymvisual.com/content/3-terms-and-conditions-of-use"
           echo "  Reusing this media yourself, commercially or not, needs your own licence"
           echo "  from Gym visual. Details in NOTICE.md."
@@ -35,7 +35,7 @@ services:
   # Passkey auth + per-user data (Node, no framework).
   # image: prebuilt (docker compose pull). build: from source (docker compose up --build).
   api:
-    image: ghcr.io/smitronix/fittrix-api:latest
+    image: ghcr.io/smitronix/smitrix-api:latest
     # Default target: no AI runtime, no AI dependency — the image every instance has always had.
     # To opt into the AI Coach, build the other target instead:
     #     API_TARGET=coach docker compose up --build api
@@ -61,7 +61,7 @@ services:
   # Builds the React frontend (multi-stage) and serves it, proxying /api → api
   # and the exercise media from the shared volume. Single origin for passkeys.
   web:
-    image: ghcr.io/smitronix/fittrix-web:latest
+    image: ghcr.io/smitronix/smitrix-web:latest
     build:
       context: .
       dockerfile: web/Dockerfile

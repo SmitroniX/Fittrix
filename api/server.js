@@ -1,4 +1,4 @@
-/* fittrix-api — passkey (WebAuthn) auth + per-user state storage for Fittrix
+/* smitrix-api — passkey (WebAuthn) auth + per-user state storage for SmiTriX
    No framework, JSON-file storage, signed session cookies.               */
 import http from 'node:http';
 import crypto from 'node:crypto';
@@ -23,7 +23,7 @@ const PORT = +(process.env.PORT || 3000);
 const DATA = process.env.DATA_DIR || '/data';
 const RP_ID = process.env.RP_ID || 'localhost';
 const ORIGIN = process.env.ORIGIN || 'http://localhost:8080';
-const RP_NAME = process.env.RP_NAME || 'Fittrix';
+const RP_NAME = process.env.RP_NAME || 'SmiTriX';
 // Admin dashboard (issue): admins are matched by uid; INVITE_ONLY gates new signups behind a
 // code the admin generates. Both default off so a fresh self-hosted instance stays open.
 const ADMIN_UIDS = (process.env.ADMIN_UIDS || '').split(',').map(s => s.trim()).filter(Boolean);

@@ -1,4 +1,4 @@
-# Fittrix — standalone web server: serves the static app AND proxies /api to the backend,
+# SmiTriX — standalone web server: serves the static app AND proxies /api to the backend,
 # so the whole app lives on ONE origin (required for WebAuthn / passkeys).
 server {
     listen ${NGINX_PORT};

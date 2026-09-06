@@ -1,9 +1,9 @@
-// Behaviour for the Fittrix site: the header's navigation sheet, the contents
+// Behaviour for the SmiTriX site: the header's navigation sheet, the contents
 // drawer and its scrollspy, the scroll reveals, the demo frame, and the two things
 // that come from the GitLab API (repo counts, release timeline).
 // Every one of them fails soft — the page is complete without any of this running.
 
-const GL_PROJECT = 'https://gitlab.com/api/v4/projects/jogdandasmit%2FFittrix'
+const GL_PROJECT = 'https://gitlab.com/api/v4/projects/jogdandasmit%2FSmiTriX'
 
 // Discord publishes an invite's guild counts to anyone who asks for the invite with
 // ?with_counts=1 — no bot token, no widget to enable, and the API reflects the caller's
@@ -210,7 +210,7 @@ function panel({ opener, panelEl, flag, closeBtn }) {
     slot.dataset.mounted = '1'
     const f = document.createElement('iframe')
     f.src = slot.dataset.demo
-    f.title = 'Fittrix live demo'
+    f.title = 'SmiTriX live demo'
     f.loading = 'lazy'
     f.style.cssText = 'width:100%;height:100%;border:0;display:block;border-radius:34px;background:#000'
     slot.appendChild(f)
@@ -306,7 +306,7 @@ function panel({ opener, panelEl, flag, closeBtn }) {
       const r = await fetch(GL_PROJECT + '/releases?per_page=100')
       if (!r.ok) return
       rel = (await r.json()).filter(x => !x.upcoming_release)
-        .map(x => ({ tag: x.tag_name, name: x.name, at: x.released_at, body: x.description || '', url: (x._links && x._links.self) || ('https://github.com/SmitroniX/Fittrix/releases/tag/' + x.tag_name) }))
+        .map(x => ({ tag: x.tag_name, name: x.name, at: x.released_at, body: x.description || '', url: (x._links && x._links.self) || ('https://github.com/SmitroniX/SmiTriX/releases/tag/' + x.tag_name) }))
       sessionStorage.setItem('repo_releases_gl', JSON.stringify(rel))
     }
     if (!rel.length) return

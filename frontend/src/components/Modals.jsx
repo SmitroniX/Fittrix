@@ -117,7 +117,7 @@ export default function Modals() {
     if (sheets.length > prev) {
       for (let i = prev; i < sheets.length; i++) {
         sheetEntries.current.push({ openedAt: location.href, live: true })
-        history.pushState({ fittrixSheet: true }, '')
+        history.pushState({ smitrixSheet: true }, '')
         pushedEntries.current++
       }
     } else if (sheets.length < prev) {

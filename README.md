@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⚡ Fittrix
+# ⚡ SmiTriX
 
 **A modern, private gym & fitness app & web platform you actually own.**
 
@@ -19,9 +19,9 @@ No subscription, no ads, full privacy.
 ![Docker](https://img.shields.io/badge/Docker-compose-2496ED?style=flat-square&logo=docker&logoColor=white)
 ![No tracking](https://img.shields.io/badge/telemetry-none-f472b6?style=flat-square)
 <br>
-[![Release](https://img.shields.io/github/v/release/SmitroniX/Fittrix?style=flat-square)](https://github.com/SmitroniX/Fittrix/releases)
-[![Stars](https://img.shields.io/github/stars/SmitroniX/Fittrix?style=flat-square)](https://github.com/SmitroniX/Fittrix/stargazers)
-[![Issues](https://img.shields.io/github/issues/SmitroniX/Fittrix?style=flat-square)](https://github.com/SmitroniX/Fittrix/issues)
+[![Release](https://img.shields.io/github/v/release/SmitroniX/SmiTriX?style=flat-square)](https://github.com/SmitroniX/SmiTriX/releases)
+[![Stars](https://img.shields.io/github/stars/SmitroniX/SmiTriX?style=flat-square)](https://github.com/SmitroniX/SmiTriX/stargazers)
+[![Issues](https://img.shields.io/github/issues/SmitroniX/SmiTriX?style=flat-square)](https://github.com/SmitroniX/SmiTriX/issues)
 [![Discord](https://img.shields.io/badge/Discord-join-5865F2?style=flat-square&logo=discord&logoColor=white)](https://discord.gg/e62jY6fwVb)
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-support-FFDD00?style=flat-square&logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/asmit_jogdand)
 
@@ -41,7 +41,7 @@ No subscription, no ads, full privacy.
 
 <div align="center">
 
-### [📦 Source on GitHub](https://github.com/SmitroniX/Fittrix)
+### [📦 Source on GitHub](https://github.com/SmitroniX/SmiTriX)
 
 Screenshots, docs and the APK download live on the site.<br>
 <sub>Want to poke at it first? The <a href="/demo/">in-browser
@@ -52,7 +52,7 @@ demo</a> is the real app with example data — no account, nothing to install.</
 ## Why
 
 Most workout apps lock your data behind a login on their servers, nag you to upgrade, or
-disappear when the startup does. Fittrix is the opposite: **it runs on your box, your data
+disappear when the startup does. SmiTriX is the opposite: **it runs on your box, your data
 stays in a folder you control, and it's yours to fork.** It still feels modern — installable
 as a home-screen app, passkey sign-in, offline support, sync across your phone and laptop.
 
@@ -100,15 +100,15 @@ as a home-screen app, passkey sign-in, offline support, sync across your phone a
 - 📦 **Yours to keep** — one-tap JSON export/import, guest mode, **no telemetry**; switching kg ↔ lb offers to convert every stored number
 - 🤖 **Ask an AI about your training** (optional) — an [MCP server](mcp/README.md) lets a client like Claude Desktop or Cursor read your history in your own words: *"what did I bench last week?"*. Read-only, spawned locally by the client, nothing leaves your box. Not in the Docker build — if you don't use an AI assistant, it isn't there
 - 🧠 **An AI coach that writes your plan** (optional, off by default) — answer a handful of questions and it designs a week of routines; later it reads what you actually logged and proposes changes, each one with the evidence behind it. You approve every change and can undo it. It runs on **your** server under **your** provider account — Anthropic, OpenAI, Gemini or any OpenAI-compatible endpoint (Ollama on your LAN counts) with a pasted API key on the default image, or the Claude Agent SDK / Codex CLI on a separate build. The phone app can use your instance or its own key. See [docs/AI_COACH.md](docs/AI_COACH.md)
-- 📱 **Standalone Android app** — the whole tracker as a sideloadable APK: no account, no server, data on the phone, native workout reminders, and an **in-app update check** that downloads the next signed APK and verifies its checksum ([download](https://github.com/SmitroniX/Fittrix))
+- 📱 **Standalone Android app** — the whole tracker as a sideloadable APK: no account, no server, data on the phone, native workout reminders, and an **in-app update check** that downloads the next signed APK and verifies its checksum ([download](https://github.com/SmitroniX/SmiTriX))
 
 ## Quick start (self-host)
 
 You need [Docker](https://docs.docker.com/get-docker/) with Compose.
 
 ```bash
-git clone https://github.com/SmitroniX/Fittrix
-cd Fittrix
+git clone https://github.com/SmitroniX/SmiTriX
+cd SmiTriX
 cp .env.example .env
 docker compose pull   # grab prebuilt images (amd64 + arm64) — skip to build from source instead
 docker compose up -d
@@ -117,12 +117,12 @@ docker compose up -d
 Open **http://localhost:8080**, tap **Create profile**, and you're in. First launch downloads
 the exercise media (~140 MB) once.
 
-> **About that media:** it reaches Fittrix through
+> **About that media:** it reaches SmiTriX through
 > [hasaneyldrm/exercises-dataset](https://github.com/hasaneyldrm/exercises-dataset), which
 > redistributes [ExerciseDB v1](https://exercisedb.dev/) — its metadata and instruction text are
 > MIT, but the images and animations are third-party content under *neither* that MIT license nor
-> Fittrix's AGPL, and their ownership is currently disputed between Gym visual and ExerciseDB.
-> Fittrix ships none of it: your instance downloads it from upstream. Reusing it yourself,
+> SmiTriX's AGPL, and their ownership is currently disputed between Gym visual and ExerciseDB.
+> SmiTriX ships none of it: your instance downloads it from upstream. Reusing it yourself,
 > commercially or not, means clearing it with the rights holder — see [NOTICE.md](NOTICE.md).
  Prefer building the images yourself instead of pulling from
 GitLab's registry? Drop the `pull` step and run `docker compose up -d --build` — you don't need Node or
@@ -138,9 +138,9 @@ no backend — everything stays on the phone, with native workout-day reminders 
 backups. Self-hosting gets you multi-device sync and profiles for friends & family; the
 mobile app is the install-and-done flavor.
 
-- **Android:** [**download the APK**](https://github.com/SmitroniX/Fittrix) — or straight from
-  [GitLab's package registry](https://github.com/SmitroniX/Fittrix/releases), where every
-  build sits next to its `.sha256` — and sideload it; Fittrix is deliberately not on the Play
+- **Android:** [**download the APK**](https://github.com/SmitroniX/SmiTriX) — or straight from
+  [GitLab's package registry](https://github.com/SmitroniX/SmiTriX/releases), where every
+  build sits next to its `.sha256` — and sideload it; SmiTriX is deliberately not on the Play
   Store. Or build it yourself: **[docs/MOBILE.md](docs/MOBILE.md)**.
 - **iPhone:** Apple doesn't allow installing apps outside the App Store, so there is no iOS
   download. Self-host and add it to your home screen from Safari (it's a full PWA), or build
@@ -187,7 +187,7 @@ All via `.env` (see `.env.example`):
 | `NGINX_PORT`  | Port the web container listens on, inside the container | `80`                 |
 | `BACKEND`     | Name of the API service that `/api` is proxied to — change it if yours isn't called `api` | `api` |
 | `PORT`        | Port the API listens on; the web container proxies to the same value | `3000`  |
-| `RP_NAME`     | Name shown in the passkey prompt                     | `Fittrix`               |
+| `RP_NAME`     | Name shown in the passkey prompt                     | `SmiTriX`               |
 | `SESSION_DAYS`| How long a sign-in lasts, in days                    | `90`                    |
 | `ADMIN_UIDS`  | User ids that get the admin dashboard (comma-separated) | *(none)*             |
 | `INVITE_ONLY` | Require an invite code to create a profile           | *(off)*                 |
@@ -207,11 +207,11 @@ host side of that volume, not the variable.
 ## Roadmap
 
 The plan lives in [ROADMAP.md](ROADMAP.md) and on the
-[GitLab milestones](https://github.com/SmitroniX/Fittrix/milestones): v1.3.4 programmes and
+[GitLab milestones](https://github.com/SmitroniX/SmiTriX/milestones): v1.3.4 programmes and
 progression (explicit warm-up/work phases, AMRAP driver selection, multi-week programmes, adaptive
 1RM), v1.3.5 accounts and sync (password and OIDC login, personal-trainer role, remote MCP), v1.3.6
 mobile (timer in the notification bar, widgets, Withings). Ideas and merge requests welcome — the
-[board](https://github.com/SmitroniX/Fittrix/projects) shows what is planned, in progress and
+[board](https://github.com/SmitroniX/SmiTriX/projects) shows what is planned, in progress and
 waiting for a test on the staging instance.
 
 ## Tech
@@ -242,23 +242,23 @@ in the Docker build.
 
 - **[Discord](https://discord.gg/e62jY6fwVb)** — release announcements, self-hosting help and
   the back-and-forth that would be a slow issue thread. Quickest way to get an answer.
-- **[Issues](https://github.com/SmitroniX/Fittrix/issues)** — bugs, questions, self-hosting
+- **[Issues](https://github.com/SmitroniX/SmiTriX/issues)** — bugs, questions, self-hosting
   help and ideas. There are no Discussions here, so it all lives in one tracker: label a question
   `question` and an idea `idea`, and it gets treated as one rather than as agreed-on work. Use
   an issue over the Discord for anything the next person should be able to find by searching.
 - **Login trouble?** Most of it is an `RP_ID`/`ORIGIN` mismatch — check
   [docs/SELF_HOSTING.md](docs/SELF_HOSTING.md) before opening an issue.
-- **Merge requests & PRs** — [open one on GitHub](https://github.com/SmitroniX/Fittrix/pulls) or [GitLab](https://gitlab.com/jogdandasmit/Fittrix/-/merge_requests); see
+- **Merge requests & PRs** — [open one on GitHub](https://github.com/SmitroniX/SmiTriX/pulls) or [GitLab](https://gitlab.com/jogdandasmit/SmiTriX/-/merge_requests); see
   [CONTRIBUTING.md](CONTRIBUTING.md).
 
-- **Repositories:** Available on both [GitHub (SmitroniX/Fittrix)](https://github.com/SmitroniX/Fittrix) and [GitLab (jogdandasmit/Fittrix)](https://gitlab.com/jogdandasmit/Fittrix).
+- **Repositories:** Available on both [GitHub (SmitroniX/SmiTriX)](https://github.com/SmitroniX/SmiTriX) and [GitLab (jogdandasmit/SmiTriX)](https://gitlab.com/jogdandasmit/SmiTriX).
 
 ## Contributing
 
 Issues and PRs welcome — see [CONTRIBUTING.md](CONTRIBUTING.md). Good first issues: more starter
 plans, exercise-data languages, import from other trackers. **A ⭐ helps more people find it.**
 
-Fittrix is free and stays free: AGPL, no subscription, no paid tier, nothing held back for
+SmiTriX is free and stays free: AGPL, no subscription, no paid tier, nothing held back for
 sponsors. If it replaced a paid tracker for you and you want to chip in, there's a coffee button
 below (and a badge at the top) — a star, a bug report or a merge request is worth just as much.
 
@@ -273,19 +273,19 @@ below (and a badge at the top) — a star, a bug report or a merge request is wo
 
 ## License
 
-**Fittrix's own code** is [GNU AGPL v3.0](LICENSE) — free and open source. You can self-host,
+**SmiTriX's own code** is [GNU AGPL v3.0](LICENSE) — free and open source. You can self-host,
 use, modify and share it; if you run a modified version as a network service, you must offer that
-version's source under the same license. Nobody can turn Fittrix into a closed, proprietary
+version's source under the same license. Nobody can turn SmiTriX into a closed, proprietary
 product.
 
-**Third-party content is not, and Fittrix cannot sublicense it.** The exercise metadata and
-instruction text originate from [ExerciseDB v1](https://exercisedb.dev/) and reach Fittrix through
+**Third-party content is not, and SmiTriX cannot sublicense it.** The exercise metadata and
+instruction text originate from [ExerciseDB v1](https://exercisedb.dev/) and reach SmiTriX through
 [hasaneyldrm/exercises-dataset](https://github.com/hasaneyldrm/exercises-dataset) under the
 **MIT** license. The exercise images and animations are third-party content covered by neither
 that license nor the AGPL, and their ownership is **currently unresolved** — the upstream dataset
 attributes them to [Gym visual](https://gymvisual.com/) under a non-transferable permission, while
 [ExerciseDB/AscendAPI](https://exercisedb.io/faq) claims to be their creator and owner. A
-clarification has been requested. Fittrix does not redistribute them (your instance fetches them
+clarification has been requested. SmiTriX does not redistribute them (your instance fetches them
 at first run) and does not relicense them. To reuse that media yourself, clear it with the rights
 holder first.
 

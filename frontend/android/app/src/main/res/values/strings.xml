@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Fittrix</string>
-    <string name="title_activity_main">Fittrix</string>
-    <string name="package_name">com.fittrix.app</string>
-    <string name="custom_url_scheme">com.fittrix.app</string>
+    <string name="app_name">SmiTriX</string>
+    <string name="title_activity_main">SmiTriX</string>
+    <string name="package_name">com.smitrix.app</string>
+    <string name="custom_url_scheme">com.smitrix.app</string>
 </resources>

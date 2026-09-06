@@ -1,4 +1,4 @@
-# Netlify Configuration for Fittrix
+# Netlify Configuration for SmiTriX
 # Docs: https://docs.netlify.com/configure-builds/file-based-configuration/
 
 [build]
@@ -23,8 +23,8 @@
 
 # Redirect direct APK downloads to the latest signed GitHub Release
 [[redirects]]
-  from = "/Fittrix.apk"
-  to = "https://github.com/SmitroniX/Fittrix/releases/latest/download/Fittrix.apk"
+  from = "/SmiTriX.apk"
+  to = "https://github.com/SmitroniX/SmiTriX/releases/latest/download/SmiTriX.apk"
   status = 302
 
 [[headers]]

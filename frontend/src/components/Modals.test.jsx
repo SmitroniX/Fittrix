@@ -57,7 +57,7 @@ function installDom() {
   for (const key of ['HTMLElement', 'Node', 'Element', 'Event']) globalThis[key] = dom[key]
   globalThis.IS_REACT_ACT_ENVIRONMENT = true
 
-  locationMock = { href: 'https://fittrix.test/#/workout' }
+  locationMock = { href: 'https://smitrix.test/#/workout' }
   historyMock = { pushState: vi.fn(), go: vi.fn() }
   Object.defineProperty(globalThis, 'location', { configurable: true, value: locationMock })
   Object.defineProperty(globalThis, 'history', { configurable: true, value: historyMock })
@@ -147,7 +147,7 @@ describe('Modals sheet history accounting', () => {
 
   it('accounts for a moved-on entry even when popstate has no current sheet', async () => {
     await setSheets([sheet('navigating')])
-    locationMock.href = 'https://fittrix.test/#/home'
+    locationMock.href = 'https://smitrix.test/#/home'
     await setSheets([])
     expect(historyMock.go).not.toHaveBeenCalled()
 

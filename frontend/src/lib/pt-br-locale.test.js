@@ -31,7 +31,7 @@ describe('Brazilian Portuguese locale', () => {
     expect(inherited).toHaveLength(613)
     // If this fails, review the changed keys and wording before accepting a new hash. From
     // frontend/: node scripts/pt-br-inheritance-fingerprint.mjs --list
-    expect(fingerprint, 'pt-PT inheritance changed; review the inherited pt-BR wording').toBe('f0d9ff79fce7efe5ea97959da4417b364b01bb1d9ec49542bbe96cb0514adf97')
+    expect(fingerprint, 'pt-PT inheritance changed; review the inherited pt-BR wording').toBe('2505110c5ee2d63eeca2629a284bdcf9325e1edc6b026caa029a30b60814bdeb')
   })
 
   test('does not leak European Portuguese UI terms', () => {

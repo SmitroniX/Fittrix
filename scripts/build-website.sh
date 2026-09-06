@@ -4,7 +4,7 @@ set -e
 # Unset any environment variables that conflict with nested npm runs
 unset npm_config_allow_scripts
 
-echo "=== Building Fittrix Frontend ==="
+echo "=== Building SmiTriX Frontend ==="
 cd frontend
 npm ci --ignore-scripts
 VITE_DEMO=1 \

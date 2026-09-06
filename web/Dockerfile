@@ -30,11 +30,11 @@ ARG VCS_REF=dev
 ARG BUILD_DATE=unknown
 
 LABEL maintainer="SmitroniX https://github.com/SmitroniX" \
-    org.opencontainers.image.title="fittrix-web" \
-    org.opencontainers.image.description="Frontend for Fittrix gym & body-weight tracker — plan routines, log workouts (supersets & cardio too), track your weight and progress, passkey login. Your data, your server." \
-    org.opencontainers.image.source="https://github.com/SmitroniX/Fittrix" \
-    org.opencontainers.image.url="https://github.com/SmitroniX/Fittrix" \
-    org.opencontainers.image.documentation="https://github.com/SmitroniX/Fittrix#readme" \
+    org.opencontainers.image.title="smitrix-web" \
+    org.opencontainers.image.description="Frontend for SmiTriX gym & body-weight tracker — plan routines, log workouts (supersets & cardio too), track your weight and progress, passkey login. Your data, your server." \
+    org.opencontainers.image.source="https://github.com/SmitroniX/SmiTriX" \
+    org.opencontainers.image.url="https://github.com/SmitroniX/SmiTriX" \
+    org.opencontainers.image.documentation="https://github.com/SmitroniX/SmiTriX#readme" \
     org.opencontainers.image.licenses="AGPL-3.0-or-later" \
     org.opencontainers.image.version=$VERSION \
     org.opencontainers.image.revision=$VCS_REF \

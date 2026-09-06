@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
     <!-- Debug-only overrides so the test build shows a distinct name next to the real app.
-         Merged over src/main/res for the debug variant only; the release build keeps Fittrix. -->
-    <string name="app_name">FittrixTest</string>
-    <string name="title_activity_main">FittrixTest</string>
+         Merged over src/main/res for the debug variant only; the release build keeps SmiTriX. -->
+    <string name="app_name">SmiTriXTest</string>
+    <string name="title_activity_main">SmiTriXTest</string>
 </resources>

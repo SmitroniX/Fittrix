@@ -54,7 +54,7 @@ let dom, root, container
 const TODAY_WD = new Date(todayISO() + 'T12:00:00').getDay()
 
 const bundle = week => ({
-  fittrix_plan: 1, name: 'Coach plan', summary: 'a plan',
+  smitrix_plan: 1, name: 'Coach plan', summary: 'a plan',
   week,
   routines: [
     { id: 'x1', name: 'Full body A', emoji: '💪', why: 'first', ex: [{ id: '0001', sets: 3, reps: 10, mode: 'reps', why: 'because' }] },

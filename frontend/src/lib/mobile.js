@@ -31,13 +31,18 @@ export async function isAndroid() {
   }
 }
 
-const FILE = 'fittrix-state.json'
+const FILE = 'smitrix-state.json'
 
 export async function nativeLoad() {
   try {
     const { Filesystem, Directory, Encoding } = await import('@capacitor/filesystem')
-    const r = await Filesystem.readFile({ path: FILE, directory: Directory.Data, encoding: Encoding.UTF8 })
-    return JSON.parse(r.data)
+    try {
+      const r = await Filesystem.readFile({ path: FILE, directory: Directory.Data, encoding: Encoding.UTF8 })
+      return JSON.parse(r.data)
+    } catch {
+      const r = await Filesystem.readFile({ path: 'fittrix-state.json', directory: Directory.Data, encoding: Encoding.UTF8 })
+      return JSON.parse(r.data)
+    }
   } catch (e) { return null }   // first launch, or unreadable — localStorage copy takes over
 }
 
@@ -49,10 +54,10 @@ export async function nativeSave(state) {
 }
 
 // "Connect to my server" mode (lib/remote.js): which of local-only / a paired remote account this
-// device chose, kept in its own file — never inside fittrix-state.json, since that file's content
+// device chose, kept in its own file — never inside smitrix-state.json, since that file's content
 // is exactly what pushState() PUTs to a server, and a device's own connection secret must never
 // travel as if it were training data.
-const REMOTE_FILE = 'fittrix-remote.json'
+const REMOTE_FILE = 'smitrix-remote.json'
 
 // Small JSON files in the app's private data directory, for device facts that must not ride
 // in S (which syncs and exports): the pairing, and how the Coach runs on this phone.
@@ -179,7 +184,7 @@ export async function writeAutoBackup(state) {
   try {
     const { Filesystem, Directory, Encoding } = await import('@capacitor/filesystem')
     await Filesystem.writeFile({
-      path: `fittrix-backup-${todayISO()}.json`,
+      path: `smitrix-backup-${todayISO()}.json`,
       directory: Directory.Documents,
       data: JSON.stringify(state),
       encoding: Encoding.UTF8,

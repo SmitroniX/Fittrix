@@ -1,7 +1,7 @@
 {
-  "name": "Fittrix",
-  "short_name": "Fittrix",
-  "description": "Fittrix - Personal gym, workout & body weight tracker",
+  "name": "SmiTriX",
+  "short_name": "SmiTriX",
+  "description": "SmiTriX - Personal gym, workout & body weight tracker",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

@@ -1,13 +1,13 @@
 {
-  "name": "fittrix-mcp",
+  "name": "smitrix-mcp",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "MCP (Model Context Protocol) bridge for Fittrix — lets an external LLM read your routines, workouts, body-weight log, estimated 1RMs and muscle balance from your self-hosted data. Read-only, stdio transport; no extra container.",
+  "description": "MCP (Model Context Protocol) bridge for SmiTriX — lets an external LLM read your routines, workouts, body-weight log, estimated 1RMs and muscle balance from your self-hosted data. Read-only, stdio transport; no extra container.",
   "license": "AGPL-3.0-or-later",
   "main": "src/index.js",
   "bin": {
-    "fittrix-mcp": "src/index.js"
+    "smitrix-mcp": "src/index.js"
   },
   "scripts": {
     "start": "node src/index.js",

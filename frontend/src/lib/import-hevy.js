@@ -101,7 +101,7 @@ export async function fetchHevyAccount(apiKey, { onProgress } = {}) {
 
 /* ---------------------------------------------------------- template → id -- */
 
-// Hevy primary_muscle_group → Fittrix body-part for exercises we invent.
+// Hevy primary_muscle_group → SmiTriX body-part for exercises we invent.
 const HEVY_BP = {
   biceps: 'upper arms', triceps: 'upper arms', forearms: 'lower arms',
   chest: 'chest', lats: 'back', upper_back: 'back', lower_back: 'back',
@@ -291,7 +291,7 @@ export function parseHevyWorkouts(workouts, templates, { unit = 'kg' } = {}) {
 }
 
 /**
- * Hevy routine → Fittrix routine config.
+ * Hevy routine → SmiTriX routine config.
  * Work sets become `sets`×`reps`/`weight`; warm-ups become `warmupSets`;
  * supersets keep adjacency via `sg`. Always imported as *new* routines.
  */
@@ -301,7 +301,7 @@ export function parseHevyRoutines(routines, templates, { unit = 'kg' } = {}) {
 
   for (const r of routines || []) {
     const ex = []
-    const sgMap = new Map() // Hevy superset_id → Fittrix sg token
+    const sgMap = new Map() // Hevy superset_id → SmiTriX sg token
 
     for (const he of r.exercises || []) {
       const id = R.resolve(he.exercise_template_id, he.title)

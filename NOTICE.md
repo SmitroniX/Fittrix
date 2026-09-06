@@ -1,12 +1,12 @@
 # Third-party notices
 
-Fittrix — Copyright (C) 2026 Duarte Santos.
-Fittrix's own code is licensed under the **GNU AGPL v3.0** (see [LICENSE](LICENSE)).
+SmiTriX — Copyright (C) 2026 Duarte Santos.
+SmiTriX's own code is licensed under the **GNU AGPL v3.0** (see [LICENSE](LICENSE)).
 
 ## App store exception
 
 As an additional permission under section 7 of the AGPL v3.0, the copyright holder permits
-distribution of the Fittrix mobile application through app store platforms (such as the
+distribution of the SmiTriX mobile application through app store platforms (such as the
 Apple App Store and Google Play) whose terms of service would otherwise be incompatible
 with the AGPL, provided the corresponding source code remains available under the AGPL at
 the project repository. This permission applies to the distribution channel only and does
@@ -46,13 +46,13 @@ SOFTWARE.
 
 ## Exercise data & media
 
-Fittrix obtains both through
+SmiTriX obtains both through
 [**hasaneyldrm/exercises-dataset**](https://github.com/hasaneyldrm/exercises-dataset), which
-licenses them differently. Neither is covered by Fittrix's AGPL license.
+licenses them differently. Neither is covered by SmiTriX's AGPL license.
 
 That dataset is itself a redistribution: the content originates from
-[**ExerciseDB v1**](https://exercisedb.dev/) by **AscendAPI**. This is verifiable from Fittrix's
-own data — the stored media filenames embed ExerciseDB's `exerciseId` (Fittrix's `0001` is
+[**ExerciseDB v1**](https://exercisedb.dev/) by **AscendAPI**. This is verifiable from SmiTriX's
+own data — the stored media filenames embed ExerciseDB's `exerciseId` (SmiTriX's `0001` is
 `0001-2gPfomN.jpg`; `2gPfomN` is ExerciseDB's id for "3/4 sit-up"), every metadata field matches,
 and the instruction sentences are identical apart from stripped `Step:N ` prefixes. See
 [issue #5](https://github.com/hasaneyldrm/exercises-dataset/issues/5) on that dataset.
@@ -61,9 +61,9 @@ and the instruction sentences are identical apart from stripped `Step:N ` prefix
 
 The exercise names, attributes and instructions (English in `frontend/src/lib/exercises-data.js`,
 other languages in `frontend/src/instr/`, regenerated via `scripts/build-instructions.mjs`)
-originate from ExerciseDB v1 and reach Fittrix through the dataset above, which distributes them
+originate from ExerciseDB v1 and reach SmiTriX through the dataset above, which distributes them
 under the MIT license reproduced below. The translations into languages other than English are
-Fittrix's own derivative work and are covered by Fittrix's AGPL.
+SmiTriX's own derivative work and are covered by SmiTriX's AGPL.
 
 ```
 MIT License
@@ -92,7 +92,7 @@ SOFTWARE.
 ### Images & animations — third-party, not MIT and not AGPL
 
 The exercise thumbnails (180×180) and animations are **not** covered by the MIT license above and
-**not** by Fittrix's AGPL. Their ownership is currently **unresolved**, and Fittrix states this
+**not** by SmiTriX's AGPL. Their ownership is currently **unresolved**, and SmiTriX states this
 plainly rather than guessing:
 
 - The upstream dataset attributes them to **© [Gym visual](https://gymvisual.com/)**, redistributed
@@ -106,14 +106,14 @@ plainly rather than guessing:
 These two claims contradict each other. A clarification has been requested from AscendAPI; this
 notice will be updated once the provenance is settled.
 
-**Until then, treat the media as third-party content licensed to neither Fittrix nor to you.**
+**Until then, treat the media as third-party content licensed to neither SmiTriX nor to you.**
 
-**Fittrix does not redistribute it.** It is not in this repository, not in its history, and not in
+**SmiTriX does not redistribute it.** It is not in this repository, not in its history, and not in
 the published container images or the Android APK. A self-hosted instance downloads it from the
 upstream source on first `docker compose up`; the mobile and demo builds load it from a CDN at
 runtime.
 
-If you want to reuse the media — in Fittrix or anywhere else, commercially or not — **clear it with
+If you want to reuse the media — in SmiTriX or anywhere else, commercially or not — **clear it with
 the rights holder first**, and keep any attribution that accompanies it intact.
 
 Brazilian Portuguese exercise instructions under
@@ -128,13 +128,13 @@ the source files.
 
 The gym check-in feature (a saved membership code shown as a QR code on the phone, added by
 typing, importing a photo, or scanning with the camera) uses three third-party packages. All are
-permissively licensed and compatible with Fittrix's AGPL, and all load on demand: the QR renderer
+permissively licensed and compatible with SmiTriX's AGPL, and all load on demand: the QR renderer
 and the browser decoder only when a card is shown or scanned, the ML Kit plugin only in the
 Android/iOS app.
 
 ### QR/barcode rendering — `lean-qr`
 
-Fittrix renders each saved code on the phone with [**lean-qr**](https://github.com/davidje13/lean-qr)
+SmiTriX renders each saved code on the phone with [**lean-qr**](https://github.com/davidje13/lean-qr)
 by David Evans, used under the **MIT License** and reproduced below. Only the code's stored value
 is kept; the picture is generated fresh from that value each time it is shown, never stored.
 It runs the same way in the app and in the browser/PWA.
@@ -176,6 +176,6 @@ Video frames are decoded in memory and never uploaded or stored.
 In the Android/iOS app, reading a code — from the camera or from an imported photo — uses the
 [**@capacitor-mlkit/barcode-scanning**](https://github.com/capawesome-team/capacitor-mlkit) plugin
 by the Capawesome Team (Robin Genz), a Capacitor wrapper around Google's ML Kit, used under the
-**Apache License 2.0**. Fittrix pins the `7.x` line to stay on Capacitor 7. The full license text is
+**Apache License 2.0**. SmiTriX pins the `7.x` line to stay on Capacitor 7. The full license text is
 available at <https://www.apache.org/licenses/LICENSE-2.0> and in the package's own `LICENSE` file.
-The decoded string is what Fittrix keeps; the photo itself is never stored.
+The decoded string is what SmiTriX keeps; the photo itself is never stored.

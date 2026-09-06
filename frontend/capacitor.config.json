@@ -1,6 +1,6 @@
 {
-  "appId": "com.fittrix.app",
-  "appName": "Fittrix",
+  "appId": "com.smitrix.app",
+  "appName": "SmiTriX",
   "webDir": "dist",
   "backgroundColor": "#0c0e12",
   "android": {

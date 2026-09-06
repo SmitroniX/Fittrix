@@ -195,7 +195,7 @@ export function validatePlan(data, ctx = {}) {
   return {
     ok: true,
     bundle: {
-      fittrix_plan: 1,
+      smitrix_plan: 1,
       name: clampStr(data.name || 'Coach plan', 40),
       summary: clampStr(data.summary || '', 1200),
       basedOn: clampStr(data.basedOn || '', 400),

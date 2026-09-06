@@ -1,4 +1,4 @@
-/* Fittrix project site.
+/* SmiTriX project site.
    Dark on purpose: the app is pure black with a green accent, and a light site in
    front of it would be a different product. Everything here is hand-written — no
    framework, no build step, one stylesheet for all three pages. */
@@ -619,7 +619,7 @@ section { padding: var(--sec) 0 0; }
 @media (max-width: 620px) { .spec-cells { grid-template-columns: repeat(2, 1fr); } }
 
 /* ------------------------------------------------------------- the link quad
-   Four places Fittrix lives, as one block of four. Each pad is the whole link, so
+   Four places SmiTriX lives, as one block of four. Each pad is the whole link, so
    the target is the card and not the words in it. */
 
 .quad {

@@ -1,5 +1,5 @@
 {
-  "name": "fittrix",
+  "name": "smitrix",
   "private": true,
   "scripts": {
     "build:website": "bash scripts/build-website.sh",

@@ -23,7 +23,7 @@ const mocks = vi.hoisted(() => {
     replaceState: vi.fn(), setUser: vi.fn(), pullState: vi.fn(), pushState: vi.fn(),
     signOut: vi.fn(), signOutAll: vi.fn(), resetDemo: vi.fn(), disconnectServer: vi.fn(),
   })
-  state.checkForUpdate = vi.fn(() => Promise.resolve({ hasUpdate: true, latestVersion: '9.9.9', apkUrl: 'https://x/fittrix.apk', hashUrl: null }))
+  state.checkForUpdate = vi.fn(() => Promise.resolve({ hasUpdate: true, latestVersion: '9.9.9', apkUrl: 'https://x/smitrix.apk', hashUrl: null }))
   state.confirmSheet = vi.fn()
   return state
 })
@@ -86,7 +86,7 @@ const mount = async () => {
   await act(async () => { root.render(<Settings />) })
   await act(async () => { await Promise.resolve(); await Promise.resolve() })
 }
-const updateRow = () => [...host.querySelectorAll('.lrow')].find(r => r.textContent.includes('Fittrix v9.9.9 available'))
+const updateRow = () => [...host.querySelectorAll('.lrow')].find(r => r.textContent.includes('SmiTriX v9.9.9 available'))
 
 describe('Settings — in-app update check', () => {
   it('web build: never asks for releases and shows no update row', async () => {

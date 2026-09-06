@@ -16,7 +16,7 @@
                  somebody's personal subscription is being spent by people who are not the
                  subscriber.
 
-   Fittrix does not interpret any provider's terms on a self-hoster's behalf. It just makes
+   SmiTriX does not interpret any provider's terms on a self-hoster's behalf. It just makes
    the shape that doesn't need the interpretation available, and refuses the shape that does:
    in instance mode a *personal* credential (a Claude Code setup token, an OAuth login) binds
    to the first profile that uses it, and any other profile is refused rather than warned. A
@@ -97,14 +97,21 @@ let legacyKeyCache = null;
 function key() {
   if (keyCache) return keyCache;
   const secret = fs.readFileSync(path.join(DATA, 'secret'), 'utf8').trim();
-  keyCache = Buffer.from(crypto.hkdfSync('sha256', Buffer.from(secret, 'utf8'), Buffer.alloc(0), Buffer.from('fittrix-coach-v1'), 32));
+  keyCache = Buffer.from(crypto.hkdfSync('sha256', Buffer.from(secret, 'utf8'), Buffer.alloc(0), Buffer.from('smitrix-coach-v1'), 32));
   return keyCache;
 }
 function legacyKey() {
   if (legacyKeyCache) return legacyKeyCache;
   const secret = fs.readFileSync(path.join(DATA, 'secret'), 'utf8').trim();
-  legacyKeyCache = Buffer.from(crypto.hkdfSync('sha256', Buffer.from(secret, 'utf8'), Buffer.alloc(0), Buffer.from('fittrix-coach-legacy'), 32));
+  legacyKeyCache = Buffer.from(crypto.hkdfSync('sha256', Buffer.from(secret, 'utf8'), Buffer.alloc(0), Buffer.from('smitrix-coach-legacy'), 32));
   return legacyKeyCache;
+}
+let fittrixKeyCache = null;
+function fittrixKey() {
+  if (fittrixKeyCache) return fittrixKeyCache;
+  const secret = fs.readFileSync(path.join(DATA, 'secret'), 'utf8').trim();
+  fittrixKeyCache = Buffer.from(crypto.hkdfSync('sha256', Buffer.from(secret, 'utf8'), Buffer.alloc(0), Buffer.from('fittrix-coach-v1'), 32));
+  return fittrixKeyCache;
 }
 export function encrypt(obj) {
   const iv = crypto.randomBytes(12);
@@ -113,21 +120,17 @@ export function encrypt(obj) {
   return Buffer.concat([iv, c.getAuthTag(), enc]).toString('base64');
 }
 export function decrypt(blob) {
-  try {
-    const buf = Buffer.from(String(blob || ''), 'base64');
-    const d = crypto.createDecipheriv('aes-256-gcm', key(), buf.subarray(0, 12));
-    d.setAuthTag(buf.subarray(12, 28));
-    return JSON.parse(Buffer.concat([d.update(buf.subarray(28)), d.final()]).toString('utf8'));
-  } catch {
+  for (const k of [key, legacyKey, fittrixKey]) {
     try {
       const buf = Buffer.from(String(blob || ''), 'base64');
-      const d = crypto.createDecipheriv('aes-256-gcm', legacyKey(), buf.subarray(0, 12));
+      const d = crypto.createDecipheriv('aes-256-gcm', k(), buf.subarray(0, 12));
       d.setAuthTag(buf.subarray(12, 28));
       return JSON.parse(Buffer.concat([d.update(buf.subarray(28)), d.final()]).toString('utf8'));
     } catch {
-      return null;
+      continue;
     }
-  }   // wrong key (restored ./data without the secret), or tampered file
+  }
+  return null;
 }
 
 /* ---------- load / save ---------- */

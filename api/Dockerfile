@@ -19,11 +19,11 @@ ARG VCS_REF=dev
 ARG BUILD_DATE=unknown
 
 LABEL maintainer="jogdandasmit https://gitlab.com/jogdandasmit" \
-    org.opencontainers.image.title="fittrix-api" \
+    org.opencontainers.image.title="smitrix-api" \
     org.opencontainers.image.description="Backend for Self-hosted gym & body-weight tracker — plan routines, log workouts (supersets & cardio too), track your weight and progress, passkey login. Your data, your server." \
-    org.opencontainers.image.source="https://github.com/SmitroniX/Fittrix" \
-    org.opencontainers.image.url="https://github.com/SmitroniX/Fittrix" \
-    org.opencontainers.image.documentation="https://github.com/SmitroniX/Fittrix#readme" \
+    org.opencontainers.image.source="https://github.com/SmitroniX/SmiTriX" \
+    org.opencontainers.image.url="https://github.com/SmitroniX/SmiTriX" \
+    org.opencontainers.image.documentation="https://github.com/SmitroniX/SmiTriX#readme" \
     org.opencontainers.image.licenses="AGPL-3.0-or-later" \
     org.opencontainers.image.version=$VERSION \
     org.opencontainers.image.revision=$VCS_REF \

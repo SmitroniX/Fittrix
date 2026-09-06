@@ -1,6 +1,6 @@
 # Building the mobile app (iOS / Android)
 
-Fittrix ships in two flavors from the same codebase:
+SmiTriX ships in two flavors from the same codebase:
 
 | | **Self-hosted** (this repo's default) | **Mobile app** (`VITE_MOBILE=1`) |
 |---|---|---|
@@ -11,7 +11,7 @@ Fittrix ships in two flavors from the same codebase:
 | Exercise media | served by your server (`img/`, `gif/`) | loaded from the jsDelivr CDN |
 
 The mobile flavor never talks to a backend by default: no sign-in screen, no sync, no
-telemetry. State is mirrored from `localStorage` into `fittrix-state.json` in the app's
+telemetry. State is mirrored from `localStorage` into `smitrix-state.json` in the app's
 private data directory on every change (iOS is allowed to evict WebView storage under
 pressure — the file mirror is the durable copy and is restored on launch). Backups go out
 through the OS share sheet instead of a browser download.
@@ -19,7 +19,7 @@ through the OS share sheet instead of a browser download.
 ### Connecting the app to your own server
 
 On first launch the app asks how you want to use it. Alongside the fully local mode above,
-you can instead **connect it to a self-hosted Fittrix server** — your data then lives there,
+you can instead **connect it to a self-hosted SmiTriX server** — your data then lives there,
 synced the same way the browser PWA does, instead of only on the phone. This is a mode of the
 same app, not a different build or download.
 
@@ -46,7 +46,7 @@ or Settings → **"Connect to my server"** later) to finish. Notes:
 - **Android:** Android Studio (bundles the SDK). Java 21 for Gradle.
 - **iOS:** a Mac with Xcode 15+ and CocoaPods (`brew install cocoapods`). A free Apple ID
   is enough to run the app on your own iPhone (see below); paid membership is only needed
-  for App Store distribution, which Fittrix doesn't do.
+  for App Store distribution, which SmiTriX doesn't do.
 
 ## Build & run
 
@@ -80,18 +80,18 @@ npx @capacitor/assets generate --iconBackgroundColor '#0c0e12' --splashBackgroun
 
 ## Distribution — deliberately no app stores
 
-Fittrix's mobile app is not on the Play Store or App Store, and that's a choice: no store
+SmiTriX's mobile app is not on the Play Store or App Store, and that's a choice: no store
 accounts, no store rules, no yearly fees between you and an open-source app.
 
 ### Android — sideload the APK
 
 The official signed APK is in three places, all the same file:
 
-- **[fittrix.duarte-santos.ch](https://fittrix.duarte-santos.ch)** — the download page.
-- **[GitLab's package registry](https://github.com/SmitroniX/Fittrix/releases)** — every
-  build under `fittrix-android/<version>/`, with a `.sha256` beside it. Direct link, no login:
-  `https://gitlab.com/api/v4/projects/85678327/packages/generic/fittrix-android/<version>/Fittrix-<version>.apk`
-- **[The GitLab release](https://github.com/SmitroniX/Fittrix/releases)** for that version,
+- **[smitrix.duarte-santos.ch](https://smitrix.duarte-santos.ch)** — the download page.
+- **[GitLab's package registry](https://github.com/SmitroniX/SmiTriX/releases)** — every
+  build under `smitrix-android/<version>/`, with a `.sha256` beside it. Direct link, no login:
+  `https://gitlab.com/api/v4/projects/85678327/packages/generic/smitrix-android/<version>/SmiTriX-<version>.apk`
+- **[The GitLab release](https://github.com/SmitroniX/SmiTriX/releases)** for that version,
   which links to the two above.
 
 Android asks you to allow installs from the browser the first time — that's standard for any
@@ -113,11 +113,11 @@ cd android && ./gradlew assembleRelease            # → app/build/outputs/apk/r
 
 # one-time: create a keystore. KEEP IT — updates must be signed with the same key,
 # or Android refuses to install the new version over the old one.
-keytool -genkeypair -keystore my.keystore -alias fittrix -keyalg RSA -validity 10950
+keytool -genkeypair -keystore my.keystore -alias smitrix -keyalg RSA -validity 10950
 
 # align + sign (zipalign/apksigner ship with the Android SDK build-tools)
 zipalign -f -p 4 app-release-unsigned.apk aligned.apk
-apksigner sign --ks my.keystore --ks-key-alias fittrix --out Fittrix.apk aligned.apk
+apksigner sign --ks my.keystore --ks-key-alias smitrix --out SmiTriX.apk aligned.apk
 ```
 
 ### iPhone — what's actually possible
@@ -139,7 +139,7 @@ that would simply install. Your free options:
   reads `version` out of it), so the two drifting apart shows up as a misnamed file.
 - Tagging `vX.Y.Z` is what ships everything: images, APK, release notes. Don't push a version
   tag you don't mean to release — `v*` tags are protected for that reason.
-- **License:** Fittrix is AGPL-3.0, which by itself sits badly with app-store terms of
+- **License:** SmiTriX is AGPL-3.0, which by itself sits badly with app-store terms of
   service. `NOTICE.md` carries an app-store exception (an additional permission under
   AGPL §7) granted by the copyright holder — relevant only if store distribution ever happens.
 - The app requests notification permission only when the workout-day reminder is switched

@@ -1,6 +1,6 @@
 // Mobile build only: how the Coach should run on this phone.
 //
-// Two answers. "Use my self-hosted Fittrix" hands the whole thing to the paired server — the
+// Two answers. "Use my self-hosted SmiTriX" hands the whole thing to the paired server — the
 // same Coach the web app has, with whatever provider its admin configured; the phone only has
 // to be paired. "Bring my own API key" runs the pipeline on the phone against Anthropic,
 // OpenAI, Gemini or an OpenAI-compatible endpoint, with a key that stays in secure storage.
@@ -108,7 +108,7 @@ export default function CoachSetup() {
     toast(t('The Coach is off'))
   }
 
-  const current = coachLocal?.mode === 'server' ? t('Runs on your Fittrix server')
+  const current = coachLocal?.mode === 'server' ? t('Runs on your SmiTriX server')
     : coachLocal?.mode === 'byok' ? t('Runs on this phone with your own API key')
     : t('Off — choose how the Coach should run.')
 
@@ -119,7 +119,7 @@ export default function CoachSetup() {
     </div>
 
     <Section title={t('How should the Coach run?')} footer={current}>
-      <Row icon="rocket" iconTint="var(--indigo)" title={t('Use my self-hosted Fittrix')}
+      <Row icon="rocket" iconTint="var(--indigo)" title={t('Use my self-hosted SmiTriX')}
         subtitle={user ? (serverHasCoach ? t('Your server runs the Coach with whatever provider its admin set up. Nothing new leaves this phone beyond what already syncs.') : config == null ? t('Loading…') : t('Your server has no Coach enabled — ask its admin, or bring your own key below.')) : t('Connect to my server')}
         accessory="chevron" onClick={() => { if (!user || serverHasCoach) useServer(); else setChoice('server') }} />
       <Row icon="key" iconTint="var(--acc)" title={t('Bring my own API key')}

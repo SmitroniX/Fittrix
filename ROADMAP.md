@@ -1,6 +1,6 @@
 # Roadmap
 
-Where Fittrix is going, in the order it is likely to land. Each block is a milestone; the
+Where SmiTriX is going, in the order it is likely to land. Each block is a milestone; the
 issues and merge requests attached to it are the plan, this file is the readable summary. The
 dates are the order, not a promise: a one-maintainer self-hosted project ships a version when the
 branch has been used in a real gym for a while. Blocks are deliberately over-full — whatever is not
@@ -8,8 +8,8 @@ done when a version ships rolls into the next one. Version numbers follow the re
 size of the change: the next release is the last published one plus one patch (1.3.1 → 1.3.2), and a
 minor bump is reserved for something that breaks compatibility.
 
-- Issues: https://github.com/SmitroniX/Fittrix/issues
-- Milestones: https://github.com/SmitroniX/Fittrix/milestones
+- Issues: https://github.com/SmitroniX/SmiTriX/issues
+- Milestones: https://github.com/SmitroniX/SmiTriX/milestones
 - "In review" means: on a branch and deployed to gym-test.duarte-santos.ch, waiting for a real session.
 
 ---

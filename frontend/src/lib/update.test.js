@@ -76,7 +76,7 @@ describe('checkForUpdate', () => {
   })
 
   it('finds the APK download URL from release asset links', async () => {
-    const apkUrl = 'https://gitlab.com/project/-/releases/v2.0.0/downloads/fittrix.apk'
+    const apkUrl = 'https://gitlab.com/project/-/releases/v2.0.0/downloads/smitrix.apk'
     mockFetch([{
       tag_name: 'v99.0.0',
       assets: { links: [{ url: apkUrl, direct_asset_url: apkUrl }] }
@@ -90,13 +90,13 @@ describe('checkForUpdate', () => {
       tag_name: 'v99.0.0',
       assets: {
         links: [{
-          url: 'https://redirect.example/fittrix.apk',
-          direct_asset_url: 'https://direct.example/fittrix.apk'
+          url: 'https://redirect.example/smitrix.apk',
+          direct_asset_url: 'https://direct.example/smitrix.apk'
         }]
       }
     }])
     const result = await checkForUpdate()
-    expect(result.apkUrl).toBe('https://direct.example/fittrix.apk')
+    expect(result.apkUrl).toBe('https://direct.example/smitrix.apk')
   })
 
   it('returns null apkUrl when no .apk link exists', async () => {
@@ -110,12 +110,12 @@ describe('checkForUpdate', () => {
   })
 
   it('finds the .sha256 hash URL from release asset links', async () => {
-    const hashUrl = 'https://gitlab.com/project/-/releases/v2.0.0/downloads/fittrix.apk.sha256'
+    const hashUrl = 'https://gitlab.com/project/-/releases/v2.0.0/downloads/smitrix.apk.sha256'
     mockFetch([{
       tag_name: 'v99.0.0',
       assets: {
         links: [
-          { url: 'https://example.com/fittrix.apk', direct_asset_url: 'https://example.com/fittrix.apk' },
+          { url: 'https://example.com/smitrix.apk', direct_asset_url: 'https://example.com/smitrix.apk' },
           { url: hashUrl, direct_asset_url: hashUrl },
         ]
       }
@@ -129,7 +129,7 @@ describe('checkForUpdate', () => {
       tag_name: 'v99.0.0',
       assets: {
         links: [
-          { name: 'APK', url: 'https://example.com/fittrix.apk', direct_asset_url: 'https://example.com/fittrix.apk' },
+          { name: 'APK', url: 'https://example.com/smitrix.apk', direct_asset_url: 'https://example.com/smitrix.apk' },
           { name: 'SHA256 checksum', url: 'https://example.com/checksum.txt', direct_asset_url: 'https://example.com/checksum.txt' },
         ]
       }
@@ -145,47 +145,47 @@ describe('checkForUpdate', () => {
   const REAL_RELEASE = [
     {
       "tag_name": "v1.3.1",
-      "name": "Fittrix v1.3.1",
+      "name": "SmiTriX v1.3.1",
       "assets": {
         "count": 7,
         "sources": [
           {
             "format": "zip",
-            "url": "https://gitlab.com/SmitroniX/fittrix/-/archive/v1.3.1/fittrix-v1.3.1.zip"
+            "url": "https://gitlab.com/SmitroniX/smitrix/-/archive/v1.3.1/smitrix-v1.3.1.zip"
           },
           {
             "format": "tar.gz",
-            "url": "https://gitlab.com/SmitroniX/fittrix/-/archive/v1.3.1/fittrix-v1.3.1.tar.gz"
+            "url": "https://gitlab.com/SmitroniX/smitrix/-/archive/v1.3.1/smitrix-v1.3.1.tar.gz"
           },
           {
             "format": "tar.bz2",
-            "url": "https://gitlab.com/SmitroniX/fittrix/-/archive/v1.3.1/fittrix-v1.3.1.tar.bz2"
+            "url": "https://gitlab.com/SmitroniX/smitrix/-/archive/v1.3.1/smitrix-v1.3.1.tar.bz2"
           },
           {
             "format": "tar",
-            "url": "https://gitlab.com/SmitroniX/fittrix/-/archive/v1.3.1/fittrix-v1.3.1.tar"
+            "url": "https://gitlab.com/SmitroniX/smitrix/-/archive/v1.3.1/smitrix-v1.3.1.tar"
           }
         ],
         "links": [
           {
             "id": 12790840,
             "name": "Container images (api + web)",
-            "url": "https://gitlab.com/SmitroniX/fittrix/container_registry",
-            "direct_asset_url": "https://gitlab.com/SmitroniX/fittrix/container_registry",
+            "url": "https://gitlab.com/SmitroniX/smitrix/container_registry",
+            "direct_asset_url": "https://gitlab.com/SmitroniX/smitrix/container_registry",
             "link_type": "image"
           },
           {
             "id": 12790839,
-            "name": "Fittrix-1.3.1.apk.sha256 (checksum)",
-            "url": "https://gitlab.com/api/v4/projects/85678327/packages/generic/fittrix-android/1.3.1/Fittrix-1.3.1.apk.sha256",
-            "direct_asset_url": "https://gitlab.com/api/v4/projects/85678327/packages/generic/fittrix-android/1.3.1/Fittrix-1.3.1.apk.sha256",
+            "name": "SmiTriX-1.3.1.apk.sha256 (checksum)",
+            "url": "https://gitlab.com/api/v4/projects/85678327/packages/generic/smitrix-android/1.3.1/SmiTriX-1.3.1.apk.sha256",
+            "direct_asset_url": "https://gitlab.com/api/v4/projects/85678327/packages/generic/smitrix-android/1.3.1/SmiTriX-1.3.1.apk.sha256",
             "link_type": "other"
           },
           {
             "id": 12790838,
-            "name": "Fittrix-1.3.1.apk (Android, sideload)",
-            "url": "https://gitlab.com/api/v4/projects/85678327/packages/generic/fittrix-android/1.3.1/Fittrix-1.3.1.apk",
-            "direct_asset_url": "https://gitlab.com/api/v4/projects/85678327/packages/generic/fittrix-android/1.3.1/Fittrix-1.3.1.apk",
+            "name": "SmiTriX-1.3.1.apk (Android, sideload)",
+            "url": "https://gitlab.com/api/v4/projects/85678327/packages/generic/smitrix-android/1.3.1/SmiTriX-1.3.1.apk",
+            "direct_asset_url": "https://gitlab.com/api/v4/projects/85678327/packages/generic/smitrix-android/1.3.1/SmiTriX-1.3.1.apk",
             "link_type": "package"
           }
         ]
@@ -197,14 +197,14 @@ describe('checkForUpdate', () => {
     mockFetch(REAL_RELEASE)
     const result = await checkForUpdate()
     expect(result.latestVersion).toBe('1.3.1')
-    expect(result.apkUrl).toBe('https://gitlab.com/api/v4/projects/85678327/packages/generic/fittrix-android/1.3.1/Fittrix-1.3.1.apk')
-    expect(result.hashUrl).toBe('https://gitlab.com/api/v4/projects/85678327/packages/generic/fittrix-android/1.3.1/Fittrix-1.3.1.apk.sha256')
+    expect(result.apkUrl).toBe('https://gitlab.com/api/v4/projects/85678327/packages/generic/smitrix-android/1.3.1/SmiTriX-1.3.1.apk')
+    expect(result.hashUrl).toBe('https://gitlab.com/api/v4/projects/85678327/packages/generic/smitrix-android/1.3.1/SmiTriX-1.3.1.apk.sha256')
   })
 
   it('returns null hashUrl when no hash link exists', async () => {
     mockFetch([{
       tag_name: 'v99.0.0',
-      assets: { links: [{ url: 'https://example.com/fittrix.apk', direct_asset_url: 'https://example.com/fittrix.apk' }] }
+      assets: { links: [{ url: 'https://example.com/smitrix.apk', direct_asset_url: 'https://example.com/smitrix.apk' }] }
     }])
     const result = await checkForUpdate()
     expect(result.hashUrl).toBe(null)

@@ -1,4 +1,4 @@
-# Publishes the browser-only demo to GitHub Pages: https://smitronix.github.io/Fittrix/
+# Publishes the browser-only demo to GitHub Pages: https://smitronix.github.io/SmiTriX/
 #
 # Pages serves static files only, so this build has no backend — VITE_DEMO=1 makes the app
 # boot straight into guest mode with a seeded example history (see frontend/src/lib/demo.js).

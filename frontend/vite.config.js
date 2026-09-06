@@ -18,7 +18,7 @@ const umamiSrc = process.env.VITE_UMAMI_SRC
 const umamiId = process.env.VITE_UMAMI_ID
 
 const umami = {
-  name: 'fittrix-umami',
+  name: 'smitrix-umami',
   transformIndexHtml() {
     if (!umamiSrc || !umamiId) return
     return [{

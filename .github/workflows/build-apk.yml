@@ -50,7 +50,7 @@ jobs:
           npm run build:mobile
           APP_VER=$(node -p "require('./package.json').version")
           echo "APP_VERSION=$APP_VER" >> $GITHUB_ENV
-          echo "Building Fittrix mobile v$APP_VER"
+          echo "Building SmiTriX mobile v$APP_VER"
 
       - name: Make Gradlew Executable
         run: |
@@ -91,16 +91,16 @@ jobs:
             echo "No custom secret keystore found. Generating standalone production release signing key..."
             keytool -genkeypair -v \
               -keystore release.keystore \
-              -alias fittrix \
+              -alias smitrix \
               -keyalg RSA \
               -keysize 2048 \
               -validity 10000 \
-              -storepass "fittrix_release_key" \
-              -keypass "fittrix_release_key" \
-              -dname "CN=Fittrix, OU=Mobile, O=SmitroniX, L=Mumbai, ST=Maharashtra, C=IN"
+              -storepass "smitrix_release_key" \
+              -keypass "smitrix_release_key" \
+              -dname "CN=SmiTriX, OU=Mobile, O=SmitroniX, L=Mumbai, ST=Maharashtra, C=IN"
             KEYSTORE="release.keystore"
-            KS_PASS="fittrix_release_key"
-            KEY_ALIAS="fittrix"
+            KS_PASS="smitrix_release_key"
+            KEY_ALIAS="smitrix"
           fi
 
           # 3. Sign the APK
@@ -109,31 +109,31 @@ jobs:
             --ks-pass "pass:$KS_PASS" \
             --ks-key-alias "$KEY_ALIAS" \
             --key-pass "pass:$KS_PASS" \
-            --out "Fittrix-${APP_VERSION}.apk" \
+            --out "SmiTriX-${APP_VERSION}.apk" \
             aligned.apk
 
           # 4. Verify signature
-          "$APKSIGNER" verify --verbose --print-certs "Fittrix-${APP_VERSION}.apk"
+          "$APKSIGNER" verify --verbose --print-certs "SmiTriX-${APP_VERSION}.apk"
 
           # 5. Checksums and generic named copy for direct download links
-          sha256sum "Fittrix-${APP_VERSION}.apk" > "Fittrix-${APP_VERSION}.apk.sha256"
-          cp "Fittrix-${APP_VERSION}.apk" "Fittrix.apk"
-          sha256sum "Fittrix.apk" > "Fittrix.apk.sha256"
+          sha256sum "SmiTriX-${APP_VERSION}.apk" > "SmiTriX-${APP_VERSION}.apk.sha256"
+          cp "SmiTriX-${APP_VERSION}.apk" "SmiTriX.apk"
+          sha256sum "SmiTriX.apk" > "SmiTriX.apk.sha256"
 
           # Cleanup keystore file from runner
           rm -f release.keystore aligned.apk
 
-          echo "Signed APK successfully created: Fittrix-${APP_VERSION}.apk"
+          echo "Signed APK successfully created: SmiTriX-${APP_VERSION}.apk"
 
       - name: Upload APK Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: fittrix-android-apk
+          name: smitrix-android-apk
           path: |
-            Fittrix-*.apk
-            Fittrix-*.apk.sha256
-            Fittrix.apk
-            Fittrix.apk.sha256
+            SmiTriX-*.apk
+            SmiTriX-*.apk.sha256
+            SmiTriX.apk
+            SmiTriX.apk.sha256
           retention-days: 30
 
       - name: Upload APK to GitHub Release
@@ -141,8 +141,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            Fittrix-${{ env.APP_VERSION }}.apk
-            Fittrix-${{ env.APP_VERSION }}.apk.sha256
-            Fittrix.apk
-            Fittrix.apk.sha256
+            SmiTriX-${{ env.APP_VERSION }}.apk
+            SmiTriX-${{ env.APP_VERSION }}.apk.sha256
+            SmiTriX.apk
+            SmiTriX.apk.sha256
           generate_release_notes: true

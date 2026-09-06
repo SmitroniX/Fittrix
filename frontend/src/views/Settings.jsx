@@ -96,13 +96,13 @@ export default function Settings() {
       })
     } else {
       // Update available but no APK asset — open the releases page
-      window.open('https://github.com/SmitroniX/Fittrix/releases', '_blank', 'noopener')
+      window.open('https://github.com/SmitroniX/SmiTriX/releases', '_blank', 'noopener')
     }
   }
 
   const doExport = async () => {
     const json = JSON.stringify(S, null, 2)
-    const name = 'fittrix-backup-' + todayISO() + '.json'
+    const name = 'smitrix-backup-' + todayISO() + '.json'
     // WKWebView can't download blob URLs — the native build hands the file to the share sheet.
     if (MOBILE) {
       try { await shareExport(json, name); toast(t('Backup exported')) } catch (e) { /* share sheet dismissed */ }
@@ -118,7 +118,7 @@ export default function Settings() {
     rd.onload = () => {
       try {
         const data = JSON.parse(rd.result)
-        if (!data.workouts || !data.routines) throw new Error('not a Fittrix backup')
+        if (!data.workouts || !data.routines) throw new Error('not a SmiTriX backup')
         confirmSheet({ title: t('Import backup?'), message: t('This replaces all current data with the backup file.'), confirmText: t('Import'), danger: true, onConfirm: () => { replaceState(Object.assign(JSON.parse(JSON.stringify(DEF)), data), true); toast(t('Backup imported')) } })
       } catch (e) { toast(t('Import failed: {0}', e.message)) }
     }
@@ -151,7 +151,7 @@ export default function Settings() {
     {/* ---------- account (demo and mobile builds have nothing to sign in to) ---------- */}
     <Section title={MOBILE ? (user ? t('Your server') : t('Your data')) : DEMO ? t('Demo') : t('Account')}>
       {MOBILE ? (user ? <>
-        <Row icon="personCircle" iconTint="var(--grey)" title={user.name} subtitle={t('Synced with your Fittrix server.')} />
+        <Row icon="personCircle" iconTint="var(--grey)" title={user.name} subtitle={t('Synced with your SmiTriX server.')} />
         {user.admin && <Row icon="wrench" iconTint="var(--indigo)" title={t('Admin dashboard')} accessory="chevron" onClick={() => nav('/admin')} />}
         <Row icon="signOut" iconTint="var(--red)" title={t('Disconnect')} danger onClick={() => confirmSheet({
           title: t('Disconnect from your server?'),
@@ -161,18 +161,18 @@ export default function Settings() {
         })} />
       </> : <>
         <Row icon="lock" iconTint="var(--acc)" title={t('All data stays on this phone')} subtitle={t('No account, no cloud — back it up anytime with Export below.')} />
-        <Row icon="link" iconTint="var(--indigo)" title={t('Connect to my server')} subtitle={t('Sync this device to your own self-hosted Fittrix instead.')} accessory="chevron"
+        <Row icon="link" iconTint="var(--indigo)" title={t('Connect to my server')} subtitle={t('Sync this device to your own self-hosted SmiTriX instead.')} accessory="chevron"
           onClick={() => useUI.getState().openSheet(close => <ConnectSheet close={close} />)} />
       </>) : DEMO ? <>
         <Row icon="sparkles" iconTint="var(--acc)" title={t('You’re in the demo')} subtitle={t('Example data, stored only in this browser — change anything you like.')} />
         <Row icon="reset" iconTint="var(--blue)" title={t('Reset demo data')} accessory="chevron"
           onClick={() => confirmSheet({ title: t('Reset demo data?'), message: t('Puts the example plan, workouts and weigh-ins back the way they started.'), confirmText: t('Reset'), onConfirm: () => { resetDemo(); nav('/home'); toast(t('Demo data reset')) } })} />
-        <Row icon="rocket" iconTint="var(--indigo)" title={t('Self-host Fittrix')} subtitle={t('Passkey sign-in, sync across your devices, your own data.')} accessory="chevron"
+        <Row icon="rocket" iconTint="var(--indigo)" title={t('Self-host SmiTriX')} subtitle={t('Passkey sign-in, sync across your devices, your own data.')} accessory="chevron"
           onClick={() => window.open(REPO, '_blank', 'noopener')} />
       </> : user ? <>
         <Row icon="personCircle" iconTint="var(--grey)" title={user.name} subtitle={t('Signed in with passkey — data syncs to this profile.')} />
         {user.admin && <Row icon="wrench" iconTint="var(--indigo)" title={t('Admin dashboard')} accessory="chevron" onClick={() => nav('/admin')} />}
-        <Row icon="link" iconTint="var(--blue)" title={t('Pair the mobile app')} subtitle={t('Connect the Fittrix app on your phone to this account.')} accessory="chevron"
+        <Row icon="link" iconTint="var(--blue)" title={t('Pair the mobile app')} subtitle={t('Connect the SmiTriX app on your phone to this account.')} accessory="chevron"
           onClick={() => useUI.getState().openSheet(close => <PairSheet close={close} />)} />
         <Row icon="signOut" iconTint="var(--red)" title={t('Sign out')} danger onClick={() => confirmSheet({ title: t('Sign out?'), message: t('Your data is synced to your profile first, then cleared from this device.'), confirmText: t('Sign out'), danger: true, onConfirm: () => { signOut(); nav('/home') } })} />
         <Row icon="shield" iconTint="var(--red)" title={t('Sign out everywhere')} subtitle={t('Ends this profile’s sessions on all your devices.')} danger onClick={signOutEverywhere} />
@@ -188,7 +188,7 @@ export default function Settings() {
     {/* ---------- the Coach on a phone: through the paired server, or with the user's own key ---------- */}
     {MOBILE && <Section title={t('AI Coach')}>
       <Row icon="sparkles" iconTint="var(--acc)" title={t('AI Coach')} accessory="chevron"
-        subtitle={coachLocal?.mode === 'server' ? t('Runs on your Fittrix server') : coachLocal?.mode === 'byok' ? t('Runs on this phone with your own API key') : t('Off — choose how the Coach should run.')}
+        subtitle={coachLocal?.mode === 'server' ? t('Runs on your SmiTriX server') : coachLocal?.mode === 'byok' ? t('Runs on this phone with your own API key') : t('Off — choose how the Coach should run.')}
         onClick={() => nav('/coach/setup')} />
     </Section>}
 
@@ -318,7 +318,7 @@ export default function Settings() {
 
     {/* ---------- data: fill it, bring things over, back it up, wipe it ---------- */}
     <Section title={t('Data')}>
-      {MOBILE && updateInfo?.hasUpdate && updateInfo.apkUrl && <Row icon="info" iconTint="var(--purple)" title={t('Fittrix v{0} available', updateInfo.latestVersion)}
+      {MOBILE && updateInfo?.hasUpdate && updateInfo.apkUrl && <Row icon="info" iconTint="var(--purple)" title={t('SmiTriX v{0} available', updateInfo.latestVersion)}
         accessory="chevron"
         onClick={onUpdateRowClick} />}
       <Row icon="sparkles" iconTint="var(--acc)" title={t('Load starter plan')} accessory="chevron" onClick={starterPlanSheet} />
@@ -345,7 +345,7 @@ export default function Settings() {
     {!MOBILE && <Section title={t('Tip')}>
       <Row icon="lightbulb" iconTint="var(--yellow)"
         title={IS_ANDROID ? t('In Chrome: ⋮ menu → Add to Home screen') : t('In Safari: Share → Add to Home Screen')}
-        subtitle={t('to install Fittrix as a full-screen app.') + ' ' + (user ? t('Your data syncs with your profile — sign in anywhere to see it.') : t('Guest data stays on this device — export a backup now and then!'))} />
+        subtitle={t('to install SmiTriX as a full-screen app.') + ' ' + (user ? t('Your data syncs with your profile — sign in anywhere to see it.') : t('Guest data stays on this device — export a backup now and then!'))} />
     </Section>}
 
     {/* The version, at the bottom of Settings — which is where the support template has been
@@ -353,7 +353,7 @@ export default function Settings() {
         address bar and no about box, so without this there is no way to tell which build you
         are running, or whether an update actually installed. */}
     <div className="dim small" style={{ textAlign: 'center', marginTop: 4, lineHeight: 1.6 }}>
-      Fittrix v{__APP_VERSION__} · {t('free & open source (AGPL v3)')}<br />
+      SmiTriX v{__APP_VERSION__} · {t('free & open source (AGPL v3)')}<br />
       exercise data: hasaneyldrm/exercises-dataset (MIT)<br />
       exercise images and animations © <a href="https://gymvisual.com/" target="_blank" rel="noopener">Gym visual</a>
     </div>
@@ -523,7 +523,7 @@ function PushCard({ S, update, toast }) {
           (S.reminder?.tz ? ' ' + t('Timezone: {0} (auto-detected, updates if you travel).', S.reminder.tz) : '')
         : null}
     >
-      <Row icon="bell" iconTint="var(--red)" title={t('Push notifications')} subtitle={t('Rest-timer alerts, even if Fittrix is closed.')}>
+      <Row icon="bell" iconTint="var(--red)" title={t('Push notifications')} subtitle={t('Rest-timer alerts, even if SmiTriX is closed.')}>
         <Switch checked={on} disabled={busy} onChange={toggle} />
       </Row>
       {on && (
@@ -583,7 +583,7 @@ function PairSheet({ close }) {
   return <>
     <h3>{t('Pair the mobile app')}</h3>
     <div className="muted small" style={{ marginBottom: 14 }}>
-      {t('On the Fittrix app, choose “Connect to my server”, then enter this address and the code below. It expires in 5 minutes.')}
+      {t('On the SmiTriX app, choose “Connect to my server”, then enter this address and the code below. It expires in 5 minutes.')}
     </div>
     {err ? <div className="dim small">{err}</div> : (
       <div className="card" style={{ textAlign: 'center', fontSize: 30, fontWeight: 700, letterSpacing: '.16em', padding: '18px 0' }}>

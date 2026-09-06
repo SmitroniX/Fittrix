@@ -1,6 +1,6 @@
-/* Fittrix service worker — runtime caching (works with Vite's hashed asset names).
+/* SmiTriX service worker — runtime caching (works with Vite's hashed asset names).
    Media (img/gif) cache-first; everything else network-first with offline fallback. */
-const CACHE = 'fittrix-rt-v1'
+const CACHE = 'smitrix-rt-v1'
 
 self.addEventListener('install', () => self.skipWaiting())
 self.addEventListener('activate', e => {
@@ -10,11 +10,11 @@ self.addEventListener('activate', e => {
 })
 self.addEventListener('push', e => {
   const data = e.data ? e.data.json() : {}
-  e.waitUntil(self.registration.showNotification(data.title || 'Fittrix', {
+  e.waitUntil(self.registration.showNotification(data.title || 'SmiTriX', {
     body: data.body || '',
     icon: 'icon-512.png',
     badge: 'icon-180.png',
-    tag: data.tag || 'fittrix',
+    tag: data.tag || 'smitrix',
     renotify: true
   }))
 })
