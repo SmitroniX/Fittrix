@@ -16,6 +16,7 @@ import Modals from './components/Modals.jsx'
 import Toast from './components/Toast.jsx'
 import RestTimer from './components/RestTimer.jsx'
 import TimerFlash from './components/TimerFlash.jsx'
+import { UpdateChecker } from './components/UpdateDialog.jsx'
 import Login from './views/Login.jsx'
 import MobileOnboarding from './views/MobileOnboarding.jsx'
 import Home from './views/Home.jsx'
@@ -145,6 +146,7 @@ function Shell() {
       <Modals />
       <Toast />
       <TimerFlash />
+      <UpdateChecker />
     </>
   )
 }

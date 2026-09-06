@@ -65,6 +65,7 @@ export default function Settings() {
         title: t('Update to {0}?', version),
         message: t('The latest version will be downloaded and the installer will open.'),
         confirmText: t('Download & Install'),
+        cancelText: t('Remind me later'),
         onConfirm: async () => {
           // Open a progress sheet
           let closeProgress = null
